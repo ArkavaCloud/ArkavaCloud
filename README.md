@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="arkava.jpg" alt="Arkava Protocol Logo" width="96" style="border-radius: 20px;" />
+  <img src="arkava.jpg" alt="Arkava Logo" width="96" style="border-radius: 20px;" />
 </p>
 
-<h1 align="center">Arkava Protocol</h1>
+<h1 align="center">Arkava</h1>
 
 <p align="center">
   Swiss DLT Art. 973d compliant Real-World Asset (RWA) tokenization protocol for US Equities, ETFs, and Treasury Bonds backed 1:1 by Swissquote Bank SA custody on Robinhood Chain L2.
@@ -19,11 +19,9 @@
   &middot;
   <a href="docs.html">Documentation</a>
   &middot;
-  <a href="https://github.com/arkavacloud">GitHub</a>
+  <a href="https://github.com/ArkavaCloud/ArkavaCloud">GitHub</a>
   &middot;
   <a href="mailto:official@arkava.cloud">Email Contact</a>
-  &middot;
-  <a href="https://x.com/Arkavacloud">X</a>
 </p>
 
 <p align="center">
@@ -141,5 +139,7 @@ All smart contract artifacts and legal certificates are accessible directly in-a
 | --- | --- |
 | Website | https://arkava.cloud |
 | Technical Documentation | https://arkava.cloud/docs.html |
-| GitHub Repository | https://github.com/arkavacloud |
+| GitHub Repository | https://github.com/ArkavaCloud/ArkavaCloud |
 | Official Contact Email | official@arkava.cloud |
+
+<img src="https://cdn.jsdelivr.net/gh/ViratiAkiraNandhanReddy/pixel-art-readme-gifs@v1.0.0/gifs/sqre/c16f2acb-4953-40e0-87d0-9ad9f857fc85.gif" alt="pixel-art-readme-gifs" width="100%">

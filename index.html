@@ -1,0 +1,2954 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Arkava — Institutional Tokenized Real-World Assets</title>
+  <meta name="description"
+    content="Arkava issues tokenized real-world assets (RWA) such as stocks, ETFs, and treasuries, fully collateralized 1:1 by underlying assets on Robinhood Chain and EVM networks.">
+
+  <!-- Favicon & Apple Touch Icon -->
+  <link rel="icon" type="image/jpeg" href="arkava.jpg">
+  <link rel="apple-touch-icon" href="arkava.jpg">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Open Graph / Facebook / Telegram Social Preview Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://arkava.cloud/">
+  <meta property="og:title" content="Arkava — Swiss Institutional RWA Tokenization & Pre-Sale">
+  <meta property="og:description"
+    content="Swiss DLT Art. 973d compliant RWA tokenization protocol. Tokenize US equities & treasury assets 1:1 backed by Swissquote custody on Robinhood Chain L2.">
+  <meta property="og:image" content="arkava_banner.jpg">
+
+  <!-- Twitter / X Social Share Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://arkava.cloud/">
+  <meta name="twitter:title" content="Arkava — Swiss Institutional RWA Tokenization & Pre-Sale">
+  <meta name="twitter:description"
+    content="Swiss DLT Art. 973d compliant RWA tokenization protocol. Tokenize US equities & treasury assets 1:1 backed by Swissquote custody on Robinhood Chain L2.">
+  <meta name="twitter:image" content="arkava_banner.jpg">
+
+  <!-- Google Fonts: Fraunces, Space Grotesk, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo" id="header-brand-logo">
+        <img src="arkava.jpg" alt="Arkava Logo"
+          style="width: 34px; height: 34px; border-radius: 8px; object-fit: cover;">
+        <span>Arkava</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#explorer" class="nav-link active" id="nav-explorer">Explorer</a></li>
+          <li><a href="#simulator" class="nav-link" id="nav-simulator">Mint & Swap</a></li>
+          <li><a href="#reserves" class="nav-link" id="nav-reserves">Proof of Reserve</a></li>
+          <li><a href="#roadmap" class="nav-link" id="nav-roadmap">Roadmap</a></li>
+          <li><a href="#calculator" class="nav-link" id="nav-calculator">Yield Estimator</a></li>
+          <li><a href="#faq" class="nav-link" id="nav-faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="chain-select-wrapper" style="cursor: default;" title="Exclusive Execution & Settlement Layer">
+          <div class="pulse-dot"></div>
+          <span
+            style="font-family: var(--font-sans); font-size: 12.5px; font-weight: 600; color: var(--color-navy); display: inline-flex; align-items: center; gap: 6px;">
+            Robinhood Chain (L2)
+          </span>
+        </div>
+        <button class="btn btn-primary" id="btn-connect-wallet"
+          style="height: 40px; font-size: 13px; padding: 0 16px; display: inline-flex; align-items: center; gap: 8px;">
+          <span>Connect Wallet</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Real-Time Market Price Ticker Bar (Yahoo Finance) -->
+  <div class="live-ticker-bar" id="live-ticker-bar">
+    <div class="ticker-label">
+      <span class="pulse-dot" style="width:6px;height:6px;"></span>
+      <span>LIVE</span>
+    </div>
+    <div class="ticker-overflow">
+      <div class="ticker-track" id="ticker-track">
+        <span class="ticker-item" id="tick-AAPL"><span class="ticker-sym">AAPL</span> <span
+            class="ticker-price-val">$224.50</span> <span class="ticker-chg positive">+1.20%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item" id="tick-NVDA"><span class="ticker-sym">NVDA</span> <span
+            class="ticker-price-val">$128.90</span> <span class="ticker-chg positive">+0.15%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item" id="tick-COIN"><span class="ticker-sym">COIN</span> <span
+            class="ticker-price-val">$218.80</span> <span class="ticker-chg positive">+2.45%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item" id="tick-TSLA"><span class="ticker-sym">TSLA</span> <span
+            class="ticker-price-val">$219.80</span> <span class="ticker-chg positive">+2.40%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item" id="tick-MSFT"><span class="ticker-sym">MSFT</span> <span
+            class="ticker-price-val">$428.50</span> <span class="ticker-chg positive">+0.75%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item" id="tick-SPY"><span class="ticker-sym">S&amp;P 500</span> <span
+            class="ticker-price-val">$542.10</span> <span class="ticker-chg positive">+9.80%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item" id="tick-HYG"><span class="ticker-sym">HYG</span> <span
+            class="ticker-price-val">$77.30</span> <span class="ticker-chg positive">+4.85%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item" id="tick-SHV"><span class="ticker-sym">T-BILL</span> <span
+            class="ticker-price-val">$108.42</span> <span class="ticker-chg positive">+5.24%</span></span>
+        <!-- Duplicated items for seamless infinite scroll animation -->
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item"><span class="ticker-sym">AAPL</span> <span class="ticker-price-val">$224.50</span>
+          <span class="ticker-chg positive">+1.20%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item"><span class="ticker-sym">NVDA</span> <span class="ticker-price-val">$128.90</span>
+          <span class="ticker-chg positive">+0.15%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item"><span class="ticker-sym">COIN</span> <span class="ticker-price-val">$218.80</span>
+          <span class="ticker-chg positive">+2.45%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item"><span class="ticker-sym">TSLA</span> <span class="ticker-price-val">$219.80</span>
+          <span class="ticker-chg positive">+2.40%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item"><span class="ticker-sym">MSFT</span> <span class="ticker-price-val">$428.50</span>
+          <span class="ticker-chg positive">+0.75%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item"><span class="ticker-sym">S&amp;P 500</span> <span
+            class="ticker-price-val">$542.10</span> <span class="ticker-chg positive">+9.80%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item"><span class="ticker-sym">HYG</span> <span class="ticker-price-val">$77.30</span> <span
+            class="ticker-chg positive">+4.85%</span></span>
+        <span class="ticker-sep">·</span>
+        <span class="ticker-item"><span class="ticker-sym">T-BILL</span> <span class="ticker-price-val">$108.42</span>
+          <span class="ticker-chg positive">+5.24%</span></span>
+      </div>
+    </div>
+    <div class="ticker-powered" id="ticker-status">Fetching live data...</div>
+  </div>
+
+  <!-- Mobile Drawer Navigation -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <a href="#" class="brand-logo">
+        <img src="arkava.jpg" alt="Arkava Logo"
+          style="width: 34px; height: 34px; border-radius: 8px; object-fit: cover;">
+        <span>Arkava</span>
+      </a>
+      <button class="modal-close" id="mobile-drawer-close">✕</button>
+    </div>
+    <ul class="footer-links" style="margin-top: 20px;">
+      <li><a href="#explorer" class="nav-link mobile-nav-item">Asset Explorer</a></li>
+      <li><a href="#simulator" class="nav-link mobile-nav-item">Mint & Swap</a></li>
+      <li><a href="#reserves" class="nav-link mobile-nav-item">Proof of Reserve</a></li>
+      <li><a href="#roadmap" class="nav-link mobile-nav-item">Roadmap</a></li>
+      <li><a href="#calculator" class="nav-link mobile-nav-item">Yield Estimator</a></li>
+      <li><a href="#faq" class="nav-link mobile-nav-item">FAQ</a></li>
+    </ul>
+    <div style="margin-top: auto;">
+      <button class="btn btn-primary" style="width: 100%;" id="btn-connect-wallet-mobile">Connect Wallet</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="section-padding" style="background: linear-gradient(180deg, var(--color-cream) 0%, #F5F1E2 100%);">
+      <div class="container hero-section">
+        <div class="hero-text-content">
+          <div class="hero-tag">
+            <span class="badge badge-accent" style="display: inline-flex; align-items: center; gap: 6px;">
+              <img src="robinhood.png" alt="Robinhood"
+                style="width: 18px; height: 18px; border-radius: 4px; object-fit: cover;">
+              Robinhood Chain • Institutional RWAs
+            </span>
+          </div>
+          <h1 class="hero-title" data-typewriter data-type-speed="25">Tokenized Real-World Assets 1:1 Collateralized
+          </h1>
+          <p class="hero-description">
+            Bring traditional financial assets on-chain. Arkava issues ERC-20 tokens representing US Equities (Apple,
+            NVIDIA, Coinbase, Tesla, Microsoft), ETFs, and Treasuries on Robinhood Chain—fully collateralized in
+            regulated Swiss custody.
+          </p>
+          <div class="hero-ctas">
+            <a href="#explorer" class="btn btn-primary" id="hero-btn-explore">Explore Assets</a>
+            <a href="#reserves" class="btn btn-secondary" id="hero-btn-audit">View Reserve Audit</a>
+            <button class="btn btn-ghost" id="hero-btn-trade-trigger">Open Trading Terminal →</button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-label">Total Value Locked</span>
+              <span class="stat-value text-sage" id="hero-stat-tvl">$148,920,400</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Collateral Ratio</span>
+              <span class="stat-value text-sage">100.00%</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Active Securities</span>
+              <span class="stat-value text-sage">14 Assets</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Hero Feature Card with Official Banner Showcase -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <!-- Official Glassmorphism Banner Showcase -->
+          <div
+            style="position: relative; width: 100%; height: 180px; border-radius: var(--radius-18); overflow: hidden; border: 1px solid var(--color-warm-sand); box-shadow: var(--shadow-floating);">
+            <img src="arkava_banner.jpg" alt="Arkava Banner"
+              style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.95);">
+            <div
+              style="position: absolute; bottom: 12px; left: 16px; background: rgba(23, 25, 15, 0.75); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: var(--radius-9); color: var(--color-lime-bright); font-family: var(--font-mono); font-size: 12px; font-weight: 600; border: 1px solid rgba(166, 185, 44, 0.3); display: flex; align-items: center; gap: 8px;">
+              <img src="robinhood.png" alt="Robinhood"
+                style="width: 18px; height: 18px; border-radius: 4px; object-fit: cover;">
+              Arkava • Robinhood L2
+            </div>
+          </div>
+
+          <!-- Interactive Asset Card Widget -->
+          <div class="hero-card-widget">
+            <div class="widget-header">
+              <div class="asset-cell">
+                <div class="asset-icon" style="background-color: #FFFFFF; border: 1px solid #E7E2CF;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#17190F">
+                    <path
+                      d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.32c.67-.82 1.13-1.97.99-3.12-1.01.04-2.22.68-2.92 1.5-.63.73-1.18 1.91-1.03 3.04 1.13.09 2.29-.6 2.96-1.42z" />
+                  </svg>
+                </div>
+                <div class="asset-info">
+                  <span class="asset-name">aAAPL</span>
+                  <span class="asset-symbol">Apple Inc. Common Stock</span>
+                </div>
+              </div>
+              <span class="badge badge-accent">+1.20% DIV</span>
+            </div>
+
+            <div style="margin: var(--space-20) 0;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+                <span class="stat-label">Stock Price</span>
+                <span class="mono-large" style="font-weight: 600;" id="hero-widget-price">$224.50 USD</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <span class="stat-label">Underlying Custodian</span>
+                <span class="mono-small" style="color: var(--color-dark-sage);">Swissquote Bank SA</span>
+              </div>
+            </div>
+
+            <!-- Price Trend SVG Graphic & Timeframe Selector -->
+            <div
+              style="width: 100%; margin: 12px 0; background: var(--color-cream); border-radius: var(--radius-12); padding: 10px; border: 1px solid var(--color-warm-sand);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span class="stat-label" style="font-size: 10px;">Price Trend</span>
+                <div class="timeframe-group hero-timeframe-group">
+                  <button class="timeframe-btn active" data-tf="1D">1D</button>
+                  <button class="timeframe-btn" data-tf="1W">1W</button>
+                  <button class="timeframe-btn" data-tf="1M">1M</button>
+                  <button class="timeframe-btn" data-tf="1Y">1Y</button>
+                </div>
+              </div>
+              <div style="width: 100%; height: 60px;">
+                <svg id="hero-chart-svg" viewBox="0 0 300 60"
+                  style="width: 100%; height: 100%; overflow: visible;"></svg>
+              </div>
+            </div>
+
+            <div
+              style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); margin-top: var(--space-12);">
+              <button class="btn btn-secondary" style="width: 100%; font-size: 14px;" id="widget-btn-details">Stock
+                Details</button>
+              <button class="btn btn-primary" style="width: 100%; font-size: 14px;" id="widget-btn-mint">Quick
+                Trade</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Institutional Partner 1:1 Aspect Ratio Banner Grid (Non-Clickable with Official Prominent Logos) -->
+    <section class="partner-bar-section">
+      <div class="container">
+        <span class="partner-grid-title">Institutional Ecosystem & Security Partners</span>
+
+        <div class="partner-banner-grid">
+          <!-- 1:1 Banner 1: Robinhood Chain -->
+          <div class="partner-banner-card partner-theme-robinhood" id="partner-card-robinhood">
+            <div class="partner-banner-header">
+              <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.5px; opacity: 0.85;">PRIMARY L2</span>
+            </div>
+
+            <!-- Prominent Center Logo (Official robinhood.png) -->
+            <div class="partner-logo-center">
+              <img src="robinhood.png" alt="Robinhood Chain Logo"
+                style="width: 56px; height: 56px; border-radius: 14px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+            </div>
+
+            <div>
+              <div class="partner-banner-title">Robinhood Chain</div>
+              <div class="partner-banner-sub">Zero-Gas Stock Execution</div>
+            </div>
+          </div>
+
+          <!-- 1:1 Banner 2: Chainlink PoR -->
+          <div class="partner-banner-card partner-theme-chainlink" id="partner-card-chainlink">
+            <div class="partner-banner-header">
+              <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.5px; opacity: 0.85;">ORACLE AUDIT</span>
+            </div>
+
+            <!-- Prominent Center Logo (Chainlink Hexagon Emblem) -->
+            <div class="partner-logo-center">
+              <svg width="52" height="56" viewBox="0 0 24 28" fill="none">
+                <path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm7.5 16.5L12 20.8l-7.5-4.3V7.5L12 3.2l7.5 4.3v9z"
+                  fill="#FFFFFF" />
+                <path d="M12 7.5L6.75 10.5v6L12 19.5l5.25-3v-6L12 7.5z" fill="rgba(255,255,255,0.25)" />
+              </svg>
+            </div>
+
+            <div>
+              <div class="partner-banner-title">Chainlink PoR</div>
+              <div class="partner-banner-sub">Automated Reserves Feed</div>
+            </div>
+          </div>
+
+          <!-- 1:1 Banner 3: Swissquote Bank -->
+          <div class="partner-banner-card partner-theme-swissquote" id="partner-card-swissquote">
+            <div class="partner-banner-header">
+              <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.5px; opacity: 0.85;">FINMA BANK</span>
+            </div>
+
+            <!-- Prominent Center Logo (Official swissquote.png) -->
+            <div class="partner-logo-center">
+              <img src="swissquote.png" alt="Swissquote Bank"
+                style="width: 56px; height: 56px; border-radius: 14px; object-fit: contain; background: #FFFFFF; padding: 5px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+            </div>
+
+            <div>
+              <div class="partner-banner-title">Swissquote Bank</div>
+              <div class="partner-banner-sub">1:1 Custody Collateral</div>
+            </div>
+          </div>
+
+          <!-- 1:1 Banner 4: OpenZeppelin (Official openzeppelin.png) -->
+          <div class="partner-banner-card partner-theme-openzeppelin" id="partner-card-openzeppelin">
+            <div class="partner-banner-header">
+              <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.5px; opacity: 0.85;">VERIFIED</span>
+            </div>
+
+            <!-- Prominent Center Logo (Official openzeppelin.png) -->
+            <div class="partner-logo-center">
+              <img src="openzeppelin.png" alt="OpenZeppelin Logo"
+                style="width: 56px; height: 56px; border-radius: 14px; object-fit: contain; background: #FFFFFF; padding: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+            </div>
+
+            <div>
+              <div class="partner-banner-title">OpenZeppelin</div>
+              <div class="partner-banner-sub">Smart Contract Audit Passed</div>
+            </div>
+          </div>
+
+          <!-- 1:1 Banner 5: Swiss DLT Act -->
+          <div class="partner-banner-card partner-theme-swissdlt" id="partner-card-swissdlt">
+            <div class="partner-banner-header">
+              <span
+                style="font-size: 10px; font-weight: 700; letter-spacing: 0.5px; color: var(--color-dark-sage);">LEGAL
+                ACT</span>
+            </div>
+
+            <!-- Prominent Center Logo (Swiss Coat of Arms Cross) -->
+            <div class="partner-logo-center">
+              <div
+                style="width: 56px; height: 56px; background: #D8232A; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(216, 35, 42, 0.3);">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="#FFFFFF">
+                  <path d="M10 5h4v5h5v4h-5v5h-4v-5H5v-4h5V5z" />
+                </svg>
+              </div>
+            </div>
+
+            <div>
+              <div class="partner-banner-title">Swiss DLT Act</div>
+              <div class="partner-banner-sub" style="color: var(--color-taupe);">Art. 973d Compliant</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tokenized Asset Explorer Section -->
+    <section class="section-padding explorer-section" id="explorer">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="badge badge-standard" style="margin-bottom: 8px;">Live Market</span>
+            <h2 class="section-title">Tokenized Stock & RWA Explorer</h2>
+            <p class="body-text text-muted">Browse real-world equities, ETFs, and bonds collateralized 1:1 on Robinhood
+              Chain.</p>
+          </div>
+
+          <div class="search-filter-bar">
+            <div class="input-wrapper search-input-wrapper">
+              <input type="text" class="input-text" id="asset-search-input"
+                placeholder="Search Apple, NVIDIA, Coinbase, ISIN..." style="height: 42px; font-size: 14px;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="tabs-container" style="margin-bottom: var(--space-24);" id="explorer-tabs">
+          <button class="tab-btn active" data-category="all">All Assets (8)</button>
+          <button class="tab-btn" data-category="equity">US Equities</button>
+          <button class="tab-btn" data-category="treasury">US Treasuries & Fixed Income</button>
+          <button class="tab-btn" data-category="corporate">Corporate Bonds</button>
+        </div>
+
+        <!-- Asset Table -->
+        <div class="table-responsive">
+          <table class="arkava-table">
+            <thead>
+              <tr>
+                <th>Asset Name</th>
+                <th>Underlier / ISIN</th>
+                <th>Current Price</th>
+                <th>7D Yield / APY</th>
+                <th>Collateral Backing</th>
+                <th>24h Volume</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="asset-table-body">
+              <!-- Dynamically populated by app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Mint / Swap Simulator Section -->
+    <section class="section-padding" id="simulator"
+      style="background-color: var(--color-pure-white); border-top: 1px solid var(--color-warm-sand);">
+      <div class="container">
+        <div style="text-align: center; max-width: 680px; margin: 0 auto var(--space-48) auto;">
+          <span class="badge badge-accent" style="margin-bottom: 12px;">Instant Liquidity</span>
+          <h2 class="heading-h2" style="margin-bottom: 16px;" data-typewriter>Primary Mint & Swap Simulator</h2>
+          <p class="body-text text-muted">
+            Simulate minting tokenized stocks directly from USD collateral or redeeming aTokens back to fiat/stablecoin
+            with zero slippage on Robinhood Chain.
+          </p>
+
+          <div class="sim-mode-toggle" style="max-width: 320px; margin: 20px auto 0 auto;">
+            <button class="sim-tab-btn active" id="sim-tab-mint" data-mode="mint">Primary Minting</button>
+            <button class="sim-tab-btn" id="sim-tab-redeem" data-mode="redeem">Token Redemption</button>
+          </div>
+        </div>
+
+        <div class="simulator-grid">
+          <!-- Input Card -->
+          <div class="sim-card">
+            <h3 class="subheading-h3" id="sim-step1-title" style="margin-bottom: var(--space-20);">1. Deposit Collateral
+            </h3>
+
+            <div class="form-group sim-row">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label class="form-label" id="sim-step1-label" for="sim-input-amount" style="margin: 0;">You
+                  Deposit</label>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="mono-small" style="color: var(--color-dark-sage); font-weight: 600;">Available: <span
+                      id="simulator-cash-balance">$0.00 tUSDC</span></span>
+                  <button class="btn-max-badge" id="btn-sim-max" type="button">MAX</button>
+                </div>
+              </div>
+              <div class="input-wrapper">
+                <input type="number" class="input-text" id="sim-input-amount" value="10000" min="1" step="10">
+                <select class="currency-badge" id="sim-input-currency"
+                  style="border: none; background: var(--color-warm-sand); outline: none;">
+                  <option value="USD">USD</option>
+                  <option value="USDC">USDC</option>
+                  <option value="USDT">USDT</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin: 12px 0;">
+              <span
+                style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--color-cream); border-radius: 50%; border: 1px solid var(--color-warm-sand);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-navy)"
+                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+              </span>
+            </div>
+
+            <h3 class="subheading-h3" id="sim-step2-title" style="margin-bottom: var(--space-20);">2. Receive Token</h3>
+
+            <div class="form-group sim-row">
+              <label class="form-label" id="sim-step2-label" for="sim-output-amount">Estimated Receive</label>
+              <div class="input-wrapper">
+                <input type="text" class="input-text" id="sim-output-amount" value="44.54" readonly
+                  style="background-color: var(--color-cream);">
+                <select class="currency-badge" id="sim-output-currency"
+                  style="border: none; background: var(--color-warm-sand); outline: none;">
+                  <option value="aAAPL">aAAPL (Apple)</option>
+                  <option value="aNVDA">aNVDA (NVIDIA)</option>
+                  <option value="aCOIN">aCOIN (Coinbase)</option>
+                  <option value="aTSLA">aTSLA (Tesla)</option>
+                  <option value="aMSFT">aMSFT (Microsoft)</option>
+                  <option value="aCSPX">aCSPX (S&P 500)</option>
+                  <option value="aIB01">aIB01 (Treasuries)</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%; margin-top: 12px;" id="btn-execute-sim">
+              Simulate Mint Transaction
+            </button>
+          </div>
+
+          <!-- Transaction Breakdown & Proof Preview -->
+          <div class="sim-card"
+            style="background-color: var(--color-cream); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <h3 class="subheading-h3" id="sim-summary-title" style="margin-bottom: var(--space-20);">Mint Order
+                Summary</h3>
+
+              <div class="sim-details">
+                <div class="detail-line">
+                  <span class="text-muted">Underlying Stock Price</span>
+                  <span class="mono-small" id="sim-underlying-price">$224.50 USD</span>
+                </div>
+                <div class="detail-line">
+                  <span class="text-muted" id="sim-fee-label">Mint Fee (0.00% Launch)</span>
+                  <span class="mono-small text-sage" style="font-weight: 600;">$0.00 USD</span>
+                </div>
+                <div class="detail-line">
+                  <span class="text-muted">Estimated Gas (Robinhood Chain)</span>
+                  <span class="mono-small text-sage" style="font-weight: 600;">$0.00 USD (Zero-Gas)</span>
+                </div>
+                <div class="detail-line">
+                  <span class="text-muted">Collateralization Attestation</span>
+                  <span class="badge badge-accent" style="font-size: 11px;">Verified 1:1</span>
+                </div>
+                <div class="detail-line"
+                  style="padding-top: var(--space-12); border-top: 1px dashed var(--color-warm-sand);">
+                  <span style="font-weight: 600;" id="sim-net-label">Net Token Amount</span>
+                  <span class="mono-large" style="font-weight: 600;" id="sim-net-amount">44.5434 aAAPL</span>
+                </div>
+              </div>
+
+              <div class="card-standard" style="background: var(--color-pure-white);">
+                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                  <div
+                    style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background-color: var(--color-light-beige); border-radius: 50%; flex-shrink: 0;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-dark-sage)"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <strong style="font-size: 14px; display: block; margin-bottom: 4px;">Swiss Regulatory
+                      Protection</strong>
+                    <p style="font-size: 13px; color: var(--color-taupe); line-height: 1.4;">
+                      Arkava tokens are Swiss DLT ledger-based securities. Collateral is segregated in bankruptcy-remote
+                      omnibus accounts.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 24px;">
+              <span class="mono-small" style="color: var(--color-taupe);">Robinhood Contract: 0x5050...8b1e
+                (ERC-20)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pre-Sale Token Purchase & Referral Section -->
+    <section class="section-padding" id="presale"
+      style="background-color: var(--color-pure-white); border-top: 1px solid var(--color-warm-sand); border-bottom: 1px solid var(--color-warm-sand);">
+      <div class="container">
+        <div style="text-align: center; max-width: 680px; margin: 0 auto var(--space-40) auto;">
+          <span class="badge badge-accent" style="margin-bottom: 12px;">Official Token Pre-Sale Stage 1</span>
+          <h2 class="heading-h2" style="margin-bottom: 12px;" data-typewriter>$AVA Protocol Pre-Sale & Launchpad</h2>
+          <p class="body-text text-muted">Acquire $AVA at $0.0005 Pre-Sale price before Q3 2026 TGE Mainnet Listing at
+            $0.0015 (3x Launch Value). Earn 5% Early Bird bonus tokens + 5% referral rewards.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px; align-items: start;">
+          <!-- Left: Pre-Sale Order Card -->
+          <div class="card-featured" style="padding: var(--space-32);">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-warm-sand); padding-bottom: 16px; margin-bottom: 20px;">
+              <div>
+                <span class="badge badge-accent" id="presale-status-badge" style="font-size: 11px;">● Phase 1
+                  Active</span>
+                <h3 class="subheading-h3" style="margin-top: 6px;">$AVA Token Purchase</h3>
+              </div>
+              <div style="text-align: right;">
+                <div class="mono-large text-lime" style="font-size: 22px; font-weight: 700;">$0.0005 USD</div>
+                <span class="mono-small text-muted">Expected Listing: $0.0015 (3x)</span>
+              </div>
+            </div>
+
+            <!-- Live Pre-Sale Auto-Close Countdown Banner -->
+            <div id="presale-countdown-container"
+              style="background: var(--color-navy); border-radius: var(--radius-12); padding: 12px 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.08);">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span id="presale-pulse-dot"
+                  style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--color-lime-bright); box-shadow: 0 0 8px var(--color-lime-bright);"></span>
+                <span
+                  style="font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--color-taupe); font-weight: 600;">Pre-Sale
+                  Stage 1 Ends (Thursday 13:00 UTC)</span>
+              </div>
+              <strong id="presale-countdown-text"
+                style="font-family: var(--font-mono); font-size: 15px; color: var(--color-lime-bright); font-weight: 700;">Calculating...</strong>
+            </div>
+
+            <!-- Pre-Sale Stage Progress Bar -->
+            <div
+              style="margin-bottom: 24px; background: var(--color-cream); padding: 16px; border-radius: var(--radius-12); border: 1px solid var(--color-warm-sand);">
+              <div
+                style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 8px;">
+                <span>Total Pre-Sale Raised</span>
+                <span class="mono-small text-sage" id="presale-raised-text">$392,450 USD / $500,000 USD</span>
+              </div>
+              <div
+                style="width: 100%; height: 12px; background: var(--color-warm-sand); border-radius: 6px; overflow: hidden; position: relative;">
+                <div id="presale-progress-fill"
+                  style="width: 78.49%; height: 100%; background: linear-gradient(90deg, var(--color-lime), var(--color-lime-bright)); transition: width 0.4s ease;">
+                </div>
+              </div>
+              <div
+                style="display: flex; justify-content: space-between; font-size: 12px; color: var(--color-taupe); margin-top: 6px;">
+                <span id="presale-progress-pct">78.49% Filled</span>
+                <span>Stage 2 Price: $0.0008 USD</span>
+              </div>
+            </div>
+
+            <!-- Order Inputs -->
+            <div class="form-group" style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label class="form-label" style="margin: 0;">Select Payment Amount (USDC / USDT)</label>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="mono-small" style="color: var(--color-dark-sage); font-weight: 600;">Available: <span
+                      id="presale-available-balance">$0.00 tUSDC</span></span>
+                  <button class="btn-max-badge" id="btn-presale-max" type="button">MAX</button>
+                </div>
+              </div>
+              <div class="input-wrapper">
+                <input type="number" class="input-text" id="presale-input-usd" value="1000"
+                  style="height: 44px; font-size: 16px;">
+                <span class="currency-badge" style="font-size: 14px;">USDC / USDT</span>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 20px;">
+              <label class="form-label">You Receive ($AVA Tokens + 5% Bonus)</label>
+              <div class="input-wrapper">
+                <input type="text" class="input-text" id="presale-output-arka" value="2,100,000 $AVA" readonly
+                  style="height: 44px; font-size: 16px; background: var(--color-pure-white); font-weight: 700; color: var(--color-navy);">
+              </div>
+              <span class="mono-small text-sage" id="presale-bonus-val"
+                style="display: block; margin-top: 6px;">+100,000 $AVA (5% Early Bird Bonus Included)</span>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%; height: 46px; font-size: 15px;" id="btn-buy-presale">
+              Buy $AVA Pre-Sale Tokens Now
+            </button>
+            <span class="mono-small text-muted"
+              style="display: block; text-align: center; margin-top: 10px; font-size: 11px;">Robinhood Chain L2 •
+              Zero-Gas Token Credit & Instant Wallet Register</span>
+          </div>
+
+          <!-- Right: Referral Program Card & Benefits -->
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div class="card-standard" style="padding: 24px;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <div
+                  style="width: 34px; height: 34px; background: var(--color-lime); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--color-navy);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 12v10H4V12" />
+                    <path d="M2 7h20v5H2z" />
+                    <path d="M12 22V7" />
+                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="subheading-h3" style="font-size: 17px;">Share & Earn 5% Referral Bonus</h3>
+                  <span class="mono-small text-muted">Instant Commission Credit to Your Wallet</span>
+                </div>
+              </div>
+              <p style="font-size: 13.5px; color: var(--color-taupe); line-height: 1.5; margin-bottom: 16px;">
+                Invite friends and crypto buyers using your unique referral link. Earn 5% of all $AVA tokens purchased
+                through your link credited instantly to your wallet.
+              </p>
+
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label class="form-label" style="font-size: 12px;">Your Personal Referral Link</label>
+                <div class="input-wrapper">
+                  <input type="text" class="input-text" id="referral-link-input"
+                    value="Connect Wallet to Generate Referral Link" readonly
+                    style="height: 38px; font-size: 13px; background: var(--color-cream); opacity: 0.75;">
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="btn-copy-ref-link"
+                style="width: 100%; height: 38px; font-size: 13px;">Copy Referral Link</button>
+            </div>
+
+            <div class="card-standard" style="padding: 20px; background: var(--color-cream);">
+              <h4 style="font-family: var(--font-serif); font-size: 16px; margin-bottom: 10px;">Why Buy $AVA Pre-Sale?
+              </h4>
+              <ul style="padding-left: 18px; font-size: 13.5px; color: var(--color-taupe); line-height: 1.6;">
+                <li><strong>300% Valuation Upside:</strong> Pre-sale price $0.0005 vs $0.0015 listing price.</li>
+                <li><strong>Protocol Revenue Pass-Through:</strong> 50% of protocol mint/redeem fees distributed to
+                  stakers.</li>
+                <li><strong>Robinhood Chain L2 Ecosystem:</strong> Zero-gas trading & instant settlement.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proof of Reserves Section -->
+    <section class="section-padding reserves-section" id="reserves">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: var(--space-24);">
+          <div>
+            <span class="badge badge-warning" style="margin-bottom: 8px;">Trust & Audit</span>
+            <h2 class="heading-h2" data-typewriter>100% On-Chain Proof of Reserves</h2>
+            <p class="body-text text-muted">Every tokenized stock in circulation is matched 1:1 with real shares held in
+              custody.</p>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-secondary" id="btn-open-insurance-por" style="font-size: 12.5px; height: 38px;">$100M
+              Insurance Policy</button>
+            <button class="btn btn-secondary" id="btn-open-fees-por"
+              style="font-size: 12.5px; height: 38px;">Transparent Fee Schedule</button>
+            <button class="btn btn-primary" id="btn-download-audit" style="font-size: 12.5px; height: 38px;">View
+              Security Audit & Report</button>
+          </div>
+        </div>
+
+        <div class="reserves-grid">
+          <div class="reserve-card">
+            <span class="stat-label">Total Token Circulation</span>
+            <div class="reserve-ratio">
+              <span class="ratio-value" id="reserve-tvl-val">$148.9M</span>
+            </div>
+            <span class="mono-small text-sage" style="font-weight: 600;">Robinhood Chain (L2) Settlement</span>
+          </div>
+
+          <div class="reserve-card">
+            <span class="stat-label">Custody Collateral Value</span>
+            <div class="reserve-ratio">
+              <span class="ratio-value" id="reserve-custody-val">$148.9M</span>
+            </div>
+            <span class="mono-small text-sage">Independent Verification Passed</span>
+          </div>
+
+          <div class="reserve-card">
+            <span class="stat-label">Over-Collateralization</span>
+            <div class="reserve-ratio">
+              <span class="ratio-value">100.0%</span>
+            </div>
+            <span class="mono-small text-muted">Fully Collateralized</span>
+          </div>
+
+          <div class="reserve-card">
+            <span class="stat-label">Primary Custodian</span>
+            <div
+              style="font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: var(--color-navy); margin-top: 4px;">
+              Swissquote Bank
+            </div>
+            <span class="mono-small text-muted">FINMA Regulated</span>
+          </div>
+        </div>
+
+        <div class="card-featured" style="margin-top: var(--space-32); background-color: var(--color-cream);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <h3 class="subheading-h3" style="margin-bottom: 4px;">Automated Chainlink Proof of Reserve Oracle</h3>
+              <p class="body-text text-muted" style="font-size: 15px;">Chainlink nodes continuously verify bank equity
+                balance against Robinhood Chain smart contract total supply every 10 minutes.</p>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-secondary" id="btn-open-insurance" style="font-size: 13px; height: 38px;">$100M
+                Insurance & Trust</button>
+              <button class="btn btn-secondary" id="btn-open-fee-schedule" style="font-size: 13px; height: 38px;">Fee
+                Schedule (0%)</button>
+              <button class="btn btn-secondary" id="btn-open-attestation"
+                style="font-size: 13px; height: 38px;">Independent Audit Certificate</button>
+              <button class="btn btn-ghost" id="btn-view-oracle-data">View Chainlink Feed →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Institutional Liquidity Stream Feed Widget -->
+        <div class="liquidity-stream-card">
+          <div class="stream-header">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="pulse-dot" style="width: 8px; height: 8px; background: var(--color-lime-bright);"></span>
+                <strong style="font-family: var(--font-serif); font-size: 18px; color: var(--color-cream);">Live
+                  Institutional Liquidity & Settlement Stream</strong>
+              </div>
+              <span class="mono-small" style="color: #A3A693; display: block; margin-top: 2px;">Market Maker Nodes &
+                Authorized Participants (APs) • Sub-second Execution</span>
+            </div>
+            <div style="text-align: right;">
+              <span class="stat-label" style="color: #A3A693;">24h Settlement Volume</span>
+              <div class="mono-large" style="font-size: 20px; color: var(--color-lime-bright);"
+                id="stream-total-volume">$42,180,500 USD</div>
+            </div>
+          </div>
+
+          <div class="stream-feed-list" id="stream-feed-list">
+            <!-- Dynamic stream items generated by app.js -->
+            <div class="stream-item">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="badge badge-accent" style="font-size: 10px;">MM NODE #04</span>
+                <span>Minted <strong>250.0000 aNVDA</strong> ($32,225.00 USD)</span>
+              </div>
+              <span class="mono-small" style="color: #A3A693;">Robinhood L2 • 6s ago</span>
+            </div>
+            <div class="stream-item">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="badge badge-warning" style="font-size: 10px;">AP DESK #01</span>
+                <span>Redeemed <strong>500.0000 aIB01 Treasuries</strong> ($54,210.00 USD)</span>
+              </div>
+              <span class="mono-small" style="color: #A3A693;">Swissquote Bank • 18s ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Institutional Yield Vaults Section -->
+    <section class="section-padding" id="vaults"
+      style="background-color: var(--color-cream); border-top: 1px solid var(--color-warm-sand);">
+      <div class="container">
+        <div style="margin-bottom: var(--space-36);">
+          <span class="badge badge-accent" style="margin-bottom: 8px;">Institutional Strategies</span>
+          <h2 class="heading-h2">Tokenized Yield Vaults & Automated Strategies</h2>
+          <p class="body-text text-muted">Generate automated yield on tokenized US equities and Treasuries with
+            zero-slippage liquidity.</p>
+        </div>
+
+        <div class="vaults-grid">
+          <!-- Vault 1 -->
+          <div class="vault-card">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div class="asset-icon"
+                  style="background: #2C3A19; border: 1px solid #2C3A19; width: 42px; height: 42px; color: #FFF; font-weight: bold;">
+                  $</div>
+                <span class="badge badge-accent" style="font-size: 14px; padding: 6px 12px;">5.24% APY</span>
+              </div>
+              <h3 class="subheading-h3" style="font-size: 20px; margin-bottom: 6px;">aUSD Cash Yield Vault</h3>
+              <p style="font-size: 13.5px; color: var(--color-taupe); line-height: 1.5; margin-bottom: 16px;">
+                Auto-compounding short-term US Treasury bill yields (0-1yr) with daily liquidity and FINMA bank custody.
+              </p>
+            </div>
+
+            <div>
+              <div style="border-top: 1px solid var(--color-warm-sand); padding-top: 12px; margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                  <span class="text-muted">Total Vault TVL</span>
+                  <span class="mono-small" style="font-weight: 600;">$54,200,000</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                  <span class="text-muted">Underlying Instrument</span>
+                  <span class="mono-small">iShares IB01 ETF</span>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-vault-deposit" data-vault="aUSD Cash Yield"
+                style="width: 100%;">Deposit Vault</button>
+            </div>
+          </div>
+
+          <!-- Vault 2 -->
+          <div class="vault-card">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div class="asset-icon"
+                  style="background: #E82127; border: 1px solid #E82127; width: 42px; height: 42px; color: #FFF; font-weight: bold;">
+                  T</div>
+                <span class="badge badge-accent" style="font-size: 14px; padding: 6px 12px;">14.85% APY</span>
+              </div>
+              <h3 class="subheading-h3" style="font-size: 20px; margin-bottom: 6px;">aTSLA Covered Call Vault</h3>
+              <p style="font-size: 13.5px; color: var(--color-taupe); line-height: 1.5; margin-bottom: 16px;">
+                Automated delta-neutral option yield strategy writing covered call options against tokenized Tesla
+                stock.
+              </p>
+            </div>
+
+            <div>
+              <div style="border-top: 1px solid var(--color-warm-sand); padding-top: 12px; margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                  <span class="text-muted">Total Vault TVL</span>
+                  <span class="mono-small" style="font-weight: 600;">$18,450,000</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                  <span class="text-muted">Strategy Risk</span>
+                  <span class="mono-small text-sage" style="font-weight: 600;">Hedging Active</span>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-vault-deposit" data-vault="aTSLA Covered Call"
+                style="width: 100%;">Deposit Vault</button>
+            </div>
+          </div>
+
+          <!-- Vault 3 -->
+          <div class="vault-card">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div class="asset-icon"
+                  style="background: #17190F; border: 1px solid #17190F; width: 42px; height: 42px; color: #A6B92C; font-weight: bold;">
+                  S&P</div>
+                <span class="badge badge-accent" style="font-size: 14px; padding: 6px 12px;">9.80% APY</span>
+              </div>
+              <h3 class="subheading-h3" style="font-size: 20px; margin-bottom: 6px;">aCSPX S&P 500 Dividend Vault</h3>
+              <p style="font-size: 13.5px; color: var(--color-taupe); line-height: 1.5; margin-bottom: 16px;">
+                Automated dividend reinvestment (DRIP) vault accumulating compounding S&P 500 index exposure.
+              </p>
+            </div>
+
+            <div>
+              <div style="border-top: 1px solid var(--color-warm-sand); padding-top: 12px; margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                  <span class="text-muted">Total Vault TVL</span>
+                  <span class="mono-small" style="font-weight: 600;">$32,180,000</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                  <span class="text-muted">Reinvest Cycle</span>
+                  <span class="mono-small">Daily Compound</span>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-vault-deposit" data-vault="aCSPX S&P 500 Dividend"
+                style="width: 100%;">Deposit Vault</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Institutional Protocol Roadmap Section -->
+    <section class="section-padding" id="roadmap"
+      style="background-color: var(--color-pure-white); border-top: 1px solid var(--color-warm-sand);">
+      <div class="container">
+        <div style="margin-bottom: var(--space-40);">
+          <span class="badge badge-accent" style="margin-bottom: 8px;">Protocol Growth</span>
+          <h2 class="heading-h2">Institutional Roadmap & Milestones</h2>
+          <p class="body-text text-muted">Strategic execution plan driving global liquidity and asset tokenization on
+            Robinhood Chain.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+          <div class="card-standard" style="border-top: 3px solid var(--color-dark-sage);">
+            <span class="badge badge-accent" style="margin-bottom: 12px;">Q1 2026 • COMPLETED</span>
+            <h3 class="subheading-h3" style="font-size: 18px; margin-bottom: 8px;">Swiss DLT & Custody Setup</h3>
+            <p style="font-size: 13.5px; color: var(--color-taupe); line-height: 1.5;">
+              Established FINMA-compliant omnibus accounts with Swissquote Bank SA and registered ISIN token structures.
+            </p>
+          </div>
+
+          <div class="card-standard" style="border-top: 3px solid var(--color-lime);">
+            <span class="badge badge-accent" style="margin-bottom: 12px;">Q2 2026 • COMPLETED</span>
+            <h3 class="subheading-h3" style="font-size: 18px; margin-bottom: 8px;">Robinhood Chain Integration</h3>
+            <p style="font-size: 13.5px; color: var(--color-taupe); line-height: 1.5;">
+              Deployed testnet smart contracts and integrated automated Chainlink Proof-of-Reserve oracles.
+            </p>
+          </div>
+
+          <div class="card-standard"
+            style="border-top: 3px solid var(--color-lime-bright); background-color: var(--color-cream);">
+            <span class="badge badge-warning" style="margin-bottom: 12px;">Q3 2026 • IN PROGRESS</span>
+            <h3 class="subheading-h3" style="font-size: 18px; margin-bottom: 8px;">Mainnet Trading Launch</h3>
+            <p style="font-size: 13.5px; color: var(--color-taupe); line-height: 1.5;">
+              Public launch of primary minting and zero-gas stock trading for AAPL, NVDA, COIN, TSLA, and MSFT.
+            </p>
+          </div>
+
+          <div class="card-standard" style="border-top: 3px solid var(--color-warm-sand);">
+            <span class="badge badge-standard" style="margin-bottom: 12px;">Q4 2026 • UPCOMING</span>
+            <h3 class="subheading-h3" style="font-size: 18px; margin-bottom: 8px;">Cross-Chain Yield Vaults</h3>
+            <p style="font-size: 13.5px; color: var(--color-taupe); line-height: 1.5;">
+              Launch automated treasury yield strategies and cross-chain liquidity pools across Arbitrum and Base.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Institutional Authorized Participant Application -->
+    <section class="section-padding institutional-cta-section" id="institutional">
+      <div class="container">
+        <div class="inst-cta-inner">
+          <!-- Left: Text & Benefits -->
+          <div class="inst-cta-left">
+            <span class="badge badge-accent" style="margin-bottom: 16px; font-size: 11px; letter-spacing: 0.5px;">EARLY
+              ACCESS · Q3 2026 MAINNET</span>
+            <h2
+              style="font-family: var(--font-serif); font-size: 38px; font-weight: 600; color: #FAF8EF; line-height: 1.15; margin-bottom: 20px;">
+              Apply as Authorized<br>Participant</h2>
+            <p style="color: #A3A693; font-size: 16.5px; line-height: 1.65; margin-bottom: 32px; max-width: 500px;">
+              Institutional investors, hedge funds, and family offices gain primary minting access
+              with sub-1bp protocol fees, dedicated Swiss DLT onboarding, and full $AVA governance rights.
+            </p>
+
+            <div class="inst-benefits-list">
+              <div class="inst-benefit-item">
+                <span class="inst-benefit-icon">◈</span>
+                <div>
+                  <strong>Sub-1bp Protocol Fees</strong>
+                  <p>Zero minting fees during mainnet launch phase. Lowest institutional rates on Robinhood Chain.</p>
+                </div>
+              </div>
+              <div class="inst-benefit-item">
+                <span class="inst-benefit-icon">◈</span>
+                <div>
+                  <strong>Direct Primary Minting at NAV</strong>
+                  <p>Bypass secondary markets — mint tokenized stocks directly at Net Asset Value from Swissquote
+                    custody.</p>
+                </div>
+              </div>
+              <div class="inst-benefit-item">
+                <span class="inst-benefit-icon">◈</span>
+                <div>
+                  <strong>$AVA Governance Allocation</strong>
+                  <p>Receive $AVA governance tokens, vote on protocol parameters, and earn fee-sharing revenues.</p>
+                </div>
+              </div>
+              <div class="inst-benefit-item">
+                <span class="inst-benefit-icon">◈</span>
+                <div>
+                  <strong>FINMA-Compliant KYC/AML Onboarding</strong>
+                  <p>Dedicated Swiss DLT Art. 973d compliance onboarding coordinated with Swissquote Bank SA.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trust Bar -->
+            <div class="inst-trust-bar">
+              <div class="inst-trust-item">
+                <span class="inst-trust-val">$148M+</span>
+                <span class="inst-trust-label">Total Value Locked</span>
+              </div>
+              <div class="inst-trust-item">
+                <span class="inst-trust-val">14</span>
+                <span class="inst-trust-label">Tokenized Assets</span>
+              </div>
+              <div class="inst-trust-item">
+                <span class="inst-trust-val">100%</span>
+                <span class="inst-trust-label">Collateral Ratio</span>
+              </div>
+              <div class="inst-trust-item">
+                <span class="inst-trust-val">0</span>
+                <span class="inst-trust-label">Security Incidents</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Application Form -->
+          <div class="inst-cta-right">
+            <div class="inst-form-card">
+              <div class="inst-form-header">
+                <img src="arkava.jpg" alt="Arkava"
+                  style="width: 40px; height: 40px; border-radius: 10px; object-fit: cover;">
+                <div>
+                  <div
+                    style="font-family: var(--font-serif); font-size: 18px; font-weight: 600; color: var(--color-navy);">
+                    Request Institutional Access</div>
+                  <div style="font-size: 13px; color: var(--color-taupe);">Response within 48 business hours</div>
+                </div>
+              </div>
+
+              <form id="institutional-form">
+                <div class="inst-field">
+                  <label class="form-label">Institution / Fund Name</label>
+                  <input type="text" class="input-text" id="inst-name" placeholder="e.g. Vanguard Asset Management"
+                    required>
+                </div>
+                <div class="inst-field">
+                  <label class="form-label">Official Email Address</label>
+                  <input type="email" class="input-text" id="inst-email" placeholder="partner@institution.com" required>
+                </div>
+                <div class="inst-field">
+                  <label class="form-label">Assets Under Management (AUM)</label>
+                  <select class="input-text" id="inst-aum" required style="font-family: var(--font-sans);">
+                    <option value="">Select AUM Range</option>
+                    <option value="10-100M">$10M – $100M</option>
+                    <option value="100-500M">$100M – $500M</option>
+                    <option value="500M-2B">$500M – $2B</option>
+                    <option value="2B+">$2 Billion+</option>
+                  </select>
+                </div>
+                <div class="inst-field">
+                  <label class="form-label">Primary Interest</label>
+                  <select class="input-text" id="inst-interest" style="font-family: var(--font-sans);">
+                    <option value="minting">Primary Minting Rights</option>
+                    <option value="trading">Institutional Trading Desk</option>
+                    <option value="custody">Swiss Custody Services</option>
+                    <option value="governance">Protocol Governance ($AVA)</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary" id="btn-inst-apply"
+                  style="width: 100%; height: 50px; font-size: 15px; border-radius: var(--radius-12); margin-top: 4px;">
+                  Submit Application →
+                </button>
+                <p
+                  style="font-size: 12px; color: var(--color-taupe); text-align: center; margin-top: 12px; line-height: 1.5;">
+                  Qualified institutional investors only. Arkava aTokens are not offered to US Persons.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Yield & Compounding Calculator Section -->
+    <section class="section-padding" id="calculator" style="background-color: var(--color-cream);">
+      <div class="container">
+        <div style="margin-bottom: var(--space-36);">
+          <span class="badge badge-accent" style="margin-bottom: 8px;">Compound Interest</span>
+          <h2 class="heading-h2">Yield & Growth Projection Estimator</h2>
+          <p class="body-text text-muted">Calculate potential returns holding tokenized equities and treasuries on
+            Robinhood Chain.</p>
+        </div>
+
+        <div class="calculator-box">
+          <div>
+            <div class="form-group" style="margin-bottom: var(--space-24);">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label class="form-label">Initial Investment ($)</label>
+                <span class="mono-large" style="font-weight: 600;" id="calc-principal-display">$50,000</span>
+              </div>
+              <input type="range" class="range-slider" id="calc-principal-slider" min="1000" max="250000" step="1000"
+                value="50000">
+            </div>
+
+            <div class="form-group" style="margin-bottom: var(--space-24);">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label class="form-label">Holding Timeframe (Years)</label>
+                <span class="mono-large" style="font-weight: 600;" id="calc-years-display">3 Years</span>
+              </div>
+              <input type="range" class="range-slider" id="calc-years-slider" min="1" max="10" step="1" value="3">
+            </div>
+
+            <div class="form-group" style="margin-bottom: var(--space-24);">
+              <label class="form-label">Select Target Asset</label>
+              <select class="input-text" id="calc-asset-select" style="font-family: var(--font-sans); font-size: 15px;">
+                <option value="0.0980" selected>aCSPX — iShares Core S&P 500 (9.80% Estimated APY)</option>
+                <option value="0.0524">aIB01 — US Treasuries 0-1yr (5.24% APY)</option>
+                <option value="0.0485">aHYG — High Yield Corporate Bonds (4.85% APY)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-results">
+            <div>
+              <span
+                style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--color-lime);">Projected
+                Value</span>
+              <div class="calc-big-val" id="calc-total-result">$66,170 USD</div>
+              <p style="color: #A3A693; font-size: 14px; margin-top: 8px;">
+                Estimated growth earned: <strong style="color: var(--color-cream);" id="calc-yield-earned">+$16,170
+                  USD</strong>
+              </p>
+            </div>
+
+            <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; margin-top: 24px;">
+              <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px;">
+                <span style="color: #A3A693;">Traditional Bank Cash (0.1%):</span>
+                <span class="text-mono" id="calc-bank-result">$50,150 USD</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 600;">
+                <span style="color: var(--color-lime);">Arkava Outperformance:</span>
+                <span class="text-mono text-lime" id="calc-outperformance">+$16,020 USD</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive FAQ Section -->
+    <section class="section-padding faq-section" id="faq">
+      <div class="container">
+        <div style="text-align: center; max-width: 680px; margin: 0 auto var(--space-48) auto;">
+          <span class="badge badge-accent" style="margin-bottom: 12px;">Frequently Asked Questions</span>
+          <h2 class="heading-h2" style="margin-bottom: 16px;">Everything You Need to Know</h2>
+          <p class="body-text text-muted">Clear answers on security, Swiss regulation, collateral custody, and token
+            trading.</p>
+        </div>
+
+        <div class="faq-container">
+          <!-- FAQ 1 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How does Arkava guarantee 1:1 real stock collateralization?</span>
+              <div class="faq-toggle-icon">↓</div>
+            </div>
+            <div class="faq-answer">
+              Every aToken minted on Robinhood Chain is strictly backed 1:1 by real stock shares purchased on US
+              exchanges (NYSE/NASDAQ) and held in segregated omnibus accounts at Swissquote Bank SA. Automated Chainlink
+              Proof of Reserve oracles audit bank balances against token supply every 10 minutes.
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How do I redeem my aTokens back to USD cash or stablecoins?</span>
+              <div class="faq-toggle-icon">↓</div>
+            </div>
+            <div class="faq-answer">
+              Token holders can redeem aTokens anytime via the Arkava Mint & Swap interface. When a redemption request
+              is placed, the contract burns the tokens, Swissquote Bank liquidates the equivalent underlying shares, and
+              USD cash or USDC/USDT is wired directly to your designated account or Web3 wallet.
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>What legal protections exist if Swissquote Bank faces bankruptcy?</span>
+              <div class="faq-toggle-icon">↓</div>
+            </div>
+            <div class="faq-answer">
+              Under Article 973d of the Swiss DLT Act (*Ledger-Based Securities*), underlying collateral is
+              bankruptcy-remote (*segregated asset pool*). In the event of custodian insolvency, collateralized
+              securities remain legally ring-fenced and belong exclusively to aToken holders, entirely separate from
+              bank liquidation assets.
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Why is Robinhood Chain chosen as the primary Layer-2 execution network?</span>
+              <div class="faq-toggle-icon">↓</div>
+            </div>
+            <div class="faq-answer">
+              Robinhood Chain (Chain ID: 5050) provides zero-gas execution, sub-second transaction finality, and
+              seamless compatibility with mobile self-custody wallets, making it the ideal L2 ecosystem for
+              friction-free stock tokenization and trading.
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Are Arkava aTokens transferable on decentralized exchanges (Uniswap)?</span>
+              <div class="faq-toggle-icon">↓</div>
+            </div>
+            <div class="faq-answer">
+              Yes. Arkava aTokens follow standard ERC-20 and ERC-2612 (Permit) specifications, allowing permissionless
+              transfer, collateralization in DeFi lending protocols, and liquidity pool trading across Robinhood Chain
+              and EVM networks.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modals -->
+
+    <!-- Interactive Trading Terminal Modal -->
+    <div class="modal-backdrop" id="modal-trade">
+      <div class="modal-card" style="max-width: 760px; padding: var(--space-28);">
+        <button class="modal-close" id="modal-trade-close">✕</button>
+
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-warm-sand); padding-bottom: 16px; margin-bottom: 20px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="asset-icon" id="trade-modal-icon"
+              style="width: 40px; height: 40px; background: #FFF; border: 1px solid #E7E2CF;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#17190F">
+                <path
+                  d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.32c.67-.82 1.13-1.97.99-3.12-1.01.04-2.22.68-2.92 1.5-.63.73-1.18 1.91-1.03 3.04 1.13.09 2.29-.6 2.96-1.42z" />
+              </svg>
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <h3 class="subheading-h3" id="trade-modal-title">aAAPL — Apple Inc.</h3>
+                <span class="badge badge-accent" style="display: inline-flex; align-items: center; gap: 4px;">
+                  <img src="robinhood.png" alt="Robinhood"
+                    style="width: 16px; height: 16px; border-radius: 4px; object-fit: cover;">
+                  Robinhood L2
+                </span>
+                <span class="badge-testnet">Testnet Sandbox</span>
+              </div>
+              <span class="mono-small text-muted" id="trade-modal-subtitle">ISIN: US0378331005 • 100% Swiss
+                Custody</span>
+            </div>
+          </div>
+
+          <div style="text-align: right;">
+            <div class="mono-large" style="font-weight: 600; font-size: 22px;" id="trade-modal-price">$224.50 USD</div>
+            <span class="badge badge-accent" id="trade-modal-change-badge">+1.20% 24h</span>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px;">
+          <!-- Left: Stock Chart & Live Details -->
+          <div>
+            <div
+              style="width: 100%; height: 160px; background: var(--color-cream); border-radius: var(--radius-12); padding: 12px; border: 1px solid var(--color-warm-sand); margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="form-label" style="margin-bottom: 0;">Real-Time Price Trend</span>
+                <div class="timeframe-group modal-timeframe-group">
+                  <button class="timeframe-btn active" data-tf="1D">1D</button>
+                  <button class="timeframe-btn" data-tf="1W">1W</button>
+                  <button class="timeframe-btn" data-tf="1M">1M</button>
+                  <button class="timeframe-btn" data-tf="1Y">1Y</button>
+                </div>
+              </div>
+              <svg id="modal-chart-svg" viewBox="0 0 300 80"
+                style="width: 100%; height: 100px; overflow: visible;"></svg>
+            </div>
+
+            <div class="sim-details" style="margin-bottom: 0;">
+              <div class="detail-line">
+                <span class="text-muted">24h High / Low</span>
+                <span class="mono-small">$226.10 / $222.80</span>
+              </div>
+              <div class="detail-line">
+                <span class="text-muted">Collateral Custodian</span>
+                <span class="mono-small text-sage">Swissquote Bank SA</span>
+              </div>
+              <div class="detail-line">
+                <span class="text-muted">Oracle Verification</span>
+                <span class="mono-small text-sage">Chainlink PoR (Passed)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Order Entry Panel -->
+          <div
+            style="background: var(--color-cream); border-radius: var(--radius-14); padding: 20px; border: 1px solid var(--color-warm-sand); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div
+                style="display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--color-warm-sand); padding-bottom: 10px;">
+                <button class="btn btn-primary" id="trade-tab-buy" style="flex: 1; height: 36px; font-size: 13px;">Buy
+                  Token</button>
+                <button class="btn btn-secondary" id="trade-tab-sell"
+                  style="flex: 1; height: 36px; font-size: 13px;">Sell Token</button>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <label class="form-label" id="trade-input-label" style="margin: 0;">Pay USD Amount</label>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <span class="mono-small" style="color: var(--color-dark-sage); font-weight: 600;">Available: <span
+                        id="trade-modal-cash-balance">$0.00 tUSDC</span></span>
+                    <button class="btn-max-badge" id="btn-trade-max" type="button">MAX</button>
+                  </div>
+                </div>
+                <div class="input-wrapper">
+                  <input type="number" class="input-text" id="trade-input-usd" value="1000"
+                    style="height: 40px; font-size: 15px;">
+                  <span class="currency-badge" id="trade-input-badge"
+                    style="font-size: 13px; padding: 4px 8px;">USD</span>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 16px;">
+                <label class="form-label" id="trade-output-label">You Receive</label>
+                <div class="input-wrapper">
+                  <input type="text" class="input-text" id="trade-output-tokens" value="4.4543 aAAPL" readonly
+                    style="height: 40px; font-size: 15px; background: var(--color-pure-white);">
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <button class="btn btn-primary" style="width: 100%; height: 44px; font-size: 14px;" id="btn-submit-order">
+                Execute Buy Order
+              </button>
+              <button class="btn btn-secondary btn-import-token" id="btn-import-trade-token"
+                style="width: 100%; height: 34px; font-size: 12px; margin-top: 8px;">
+                + Import Token to Web3 Wallet (EIP-747)
+              </button>
+              <span class="mono-small"
+                style="display: block; text-align: center; margin-top: 8px; font-size: 11px; color: var(--color-taupe);">Robinhood
+                Chain L2 • Zero-Gas Settlement</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portfolio & Wallet Holdings Modal -->
+    <div class="modal-backdrop" id="modal-portfolio">
+      <div class="modal-card" style="max-width: 660px;">
+        <button class="modal-close" id="modal-portfolio-close">✕</button>
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid var(--color-warm-sand); padding-bottom: 14px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <img src="arkava.jpg" alt="Arkava"
+              style="width: 38px; height: 38px; border-radius: 10px; object-fit: cover;">
+            <div>
+              <h3 class="subheading-h3" style="font-size: 19px;">My Tokenized Assets Portfolio</h3>
+              <span class="mono-small text-muted">Wallet Address: 0x71C8...49b2 • Robinhood Chain</span>
+            </div>
+          </div>
+          <span class="badge badge-accent">100% Collateralized</span>
+        </div>
+
+        <!-- Portfolio Summary Banner -->
+        <div class="portfolio-summary-banner">
+          <div class="portfolio-stat-box">
+            <span class="portfolio-stat-lbl">Available Cash</span>
+            <span class="portfolio-stat-val" id="port-cash-val" style="color: var(--color-lime-bright);">$0.00</span>
+          </div>
+          <div class="portfolio-stat-box">
+            <span class="portfolio-stat-lbl">Total Net Worth</span>
+            <span class="portfolio-stat-val" id="port-total-val">$0.00</span>
+          </div>
+          <div class="portfolio-stat-box">
+            <span class="portfolio-stat-lbl">Active Holdings</span>
+            <span class="portfolio-stat-val" id="port-holdings-count" style="color: var(--color-cream);">0 Assets</span>
+          </div>
+          <div class="portfolio-stat-box">
+            <span class="portfolio-stat-lbl">Est. Dividends</span>
+            <span class="portfolio-stat-val" id="port-est-divs"
+              style="color: var(--color-lime-bright);">+$0.00/yr</span>
+          </div>
+        </div>
+
+        <h4
+          style="font-family: var(--font-sans); font-size: 13px; text-transform: uppercase; color: var(--color-taupe); letter-spacing: 0.5px; margin-bottom: 12px;">
+          Asset Balances & Custody Status</h4>
+
+        <div class="holdings-list" id="portfolio-holdings-list">
+          <div class="holding-row">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="asset-icon" style="background:#FFF; border:1px solid #E7E2CF; width:32px; height:32px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#17190F">
+                  <path
+                    d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.32c.67-.82 1.13-1.97.99-3.12-1.01.04-2.22.68-2.92 1.5-.63.73-1.18 1.91-1.03 3.04 1.13.09 2.29-.6 2.96-1.42z" />
+                </svg>
+              </div>
+              <div>
+                <strong style="font-size: 14.5px; display: block; color: var(--color-navy);">aAAPL (Apple Inc)</strong>
+                <span class="mono-small text-muted">20.0000 Tokens @ $224.50</span>
+              </div>
+            </div>
+            <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
+              <div class="mono-large" style="font-size: 16px; font-weight: 600;">$4,490.00 USD</div>
+              <button class="btn btn-secondary btn-import-token" data-symbol="aAAPL"
+                style="font-size: 11px; padding: 2px 8px; height: 24px;">+ Import to Wallet</button>
+            </div>
+          </div>
+
+          <div class="holding-row">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="asset-icon" style="background:#000; border:1px solid #76B900; width:32px; height:32px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#76B900">
+                  <path
+                    d="M12.003 3.654c-4.57 0-8.28 3.708-8.28 8.28 0 4.573 3.71 8.283 8.28 8.283 4.574 0 8.283-3.71 8.283-8.283 0-4.572-3.71-8.28-8.28zm4.186 11.246c-.722.97-1.795 1.543-3.003 1.543-1.954 0-3.542-1.587-3.542-3.54 0-1.956 1.588-3.543 3.542-3.543 1.196 0 2.26.565 2.986 1.52.203.268.583.318.85.115.267-.202.317-.582.115-.85-.947-1.244-2.38-1.985-3.95-1.985-2.614 0-4.743 2.128-4.743 4.743 0 2.614 2.129 4.742 4.743 4.742 1.582 0 3.023-.746 3.97-1.996.2-.266.147-.645-.12-.844-.266-.2-.644-.148-.843.118z" />
+                </svg>
+              </div>
+              <div>
+                <strong style="font-size: 14.5px; display: block; color: var(--color-navy);">aNVDA (NVIDIA
+                  Corp)</strong>
+                <span class="mono-small text-muted">30.0000 Tokens @ $128.90</span>
+              </div>
+            </div>
+            <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
+              <div class="mono-large" style="font-size: 16px; font-weight: 600;">$3,867.00 USD</div>
+              <button class="btn btn-secondary btn-import-token" data-symbol="aNVDA"
+                style="font-size: 11px; padding: 2px 8px; height: 24px;">+ Import to Wallet</button>
+            </div>
+          </div>
+
+          <div class="holding-row">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="asset-icon" style="background:#17190F; border:1px solid #17190F; width:32px; height:32px;">
+                <svg width="18" height="18" viewBox="0 0 24 24">
+                  <rect x="2" y="2" width="20" height="20" rx="4" fill="#17190F" /><text x="12" y="16"
+                    font-family="sans-serif" font-size="10" font-weight="900" fill="#A6B92C"
+                    text-anchor="middle">S&P</text>
+                </svg>
+              </div>
+              <div>
+                <strong style="font-size: 14.5px; display: block; color: var(--color-navy);">aCSPX (iShares S&P
+                  500)</strong>
+                <span class="mono-small text-muted">10.0000 Tokens @ $542.10</span>
+              </div>
+            </div>
+            <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
+              <div class="mono-large" style="font-size: 16px; font-weight: 600;">$5,421.00 USD</div>
+              <button class="btn btn-secondary btn-import-token" data-symbol="aCSPX"
+                style="font-size: 11px; padding: 2px 8px; height: 24px;">+ Import to Wallet</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 20px;">
+          <button class="btn btn-primary" style="flex: 1;" id="btn-portfolio-trade">Trade More Assets</button>
+          <button class="btn btn-secondary" style="flex: 1;" id="btn-portfolio-dividends">View Dividend Log</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dividend Distribution Log Modal -->
+    <div class="modal-backdrop" id="modal-dividends">
+      <div class="modal-card" style="max-width: 620px;">
+        <button class="modal-close" id="modal-dividends-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <img src="arkava.jpg" alt="Arkava" style="width: 36px; height: 36px; border-radius: 8px; object-fit: cover;">
+          <div>
+            <h3 class="subheading-h3">Dividend Distribution History</h3>
+            <span class="mono-small text-muted">Automatic Corporate Action Pass-Through</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 14.5px; display: block;">aAAPL Q2 Dividend Payout</strong>
+              <span class="mono-small text-muted">Ex-Date: May 12, 2026 • $0.25 / token</span>
+            </div>
+            <span class="badge badge-accent">+$5.00 USDC Paid</span>
+          </div>
+
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 14.5px; display: block;">aNVDA Quarterly Dividend</strong>
+              <span class="mono-small text-muted">Ex-Date: Jun 08, 2026 • $0.10 / token</span>
+            </div>
+            <span class="badge badge-accent">+$3.00 USDC Paid</span>
+          </div>
+
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 14.5px; display: block;">aIB01 Monthly Treasury Coupon</strong>
+              <span class="mono-small text-muted">Ex-Date: Jul 01, 2026 • $0.46 / token</span>
+            </div>
+            <span class="badge badge-accent">+$23.00 USDC Paid</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;" id="btn-close-dividends">Close</button>
+      </div>
+    </div>
+
+    <!-- Chainlink PoR Live Telemetry Modal -->
+    <div class="modal-backdrop" id="modal-oracle-telemetry">
+      <div class="modal-card" style="max-width: 620px;">
+        <button class="modal-close" id="modal-telemetry-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div
+            style="width: 36px; height: 36px; background: #375BD2; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #FFF;">
+            <svg width="22" height="22" viewBox="0 0 24 28" fill="none">
+              <path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm7.5 16.5L12 20.8l-7.5-4.3V7.5L12 3.2l7.5 4.3v9z"
+                fill="#FFFFFF" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="subheading-h3">Chainlink Proof of Reserve (PoR) Telemetry</h3>
+            <span class="mono-small text-muted">Live Oracle Health & Custody Verification</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+          <div class="card-standard"
+            style="display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--color-lime);">
+            <div>
+              <strong style="font-size: 14.5px; display: block;">Oracle Heartbeat Status</strong>
+              <span class="mono-small text-sage" style="font-weight: 600;">Last Update: 3 minutes ago (Block
+                #12,849,201)</span>
+            </div>
+            <span class="badge badge-accent">● 100% Healthy</span>
+          </div>
+
+          <div class="sim-details" style="margin-bottom: 0;">
+            <div class="detail-line">
+              <span class="text-muted">Swissquote Bank Vault Balance</span>
+              <span class="mono-small text-sage" style="font-weight: 600;">$148,920,400.00 USD</span>
+            </div>
+            <div class="detail-line">
+              <span class="text-muted">Robinhood L2 Token Supply</span>
+              <span class="mono-small text-sage" style="font-weight: 600;">$148,920,400.00 USD</span>
+            </div>
+            <div class="detail-line">
+              <span class="text-muted">Collateral Coverage Ratio</span>
+              <span class="mono-small" style="font-weight: 600;">100.0000%</span>
+            </div>
+            <div class="detail-line">
+              <span class="text-muted">Node Consensus</span>
+              <span class="mono-small">16 / 16 Nodes Signed</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;" id="btn-close-telemetry">Close</button>
+      </div>
+    </div>
+
+    <!-- Cryptographic Attestation Audit Certificate Modal -->
+    <div class="modal-backdrop" id="modal-attestation">
+      <div class="modal-card" style="max-width: 660px;">
+        <button class="modal-close" id="modal-attestation-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <img src="arkava.jpg" alt="Arkava AG"
+            style="width: 40px; height: 40px; border-radius: 10px; object-fit: cover;">
+          <div>
+            <h3 class="subheading-h3">Cryptographic Attestation Certificate</h3>
+            <span class="mono-small text-muted">Independent FINMA Regulatory Audit Statement</span>
+          </div>
+        </div>
+
+        <div class="attestation-box" style="margin-bottom: 20px;">
+
+          <!-- Attestation Header: Seal + Text side by side -->
+          <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 16px;">
+
+            <!-- SVG Circular Official Seal -->
+            <div style="flex-shrink: 0;">
+              <svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <!-- Top arc: left → UP over top → right (text readable from outside) -->
+                  <path id="topArc"    d="M 80,80 m -66,0 a 66,66 0 1,1 132,0"/>
+                  <!-- Bottom arc: right → DOWN under bottom → left (text readable from outside) -->
+                  <path id="bottomArc" d="M 80,80 m  66,0 a 66,66 0 0,1 -132,0"/>
+                </defs>
+
+                <!-- Background fill -->
+                <circle cx="80" cy="80" r="76" fill="#FFF8F8"/>
+                <!-- Outer solid ring -->
+                <circle cx="80" cy="80" r="76" fill="none" stroke="#C0392B" stroke-width="2.5"/>
+                <!-- Outer dashed ring -->
+                <circle cx="80" cy="80" r="72" fill="none" stroke="#C0392B" stroke-width="0.9" stroke-dasharray="4,4" opacity="0.75"/>
+                <!-- Inner dashed ring (text band inner boundary) -->
+                <circle cx="80" cy="80" r="62" fill="none" stroke="#C0392B" stroke-width="0.7" stroke-dasharray="3,3" opacity="0.55"/>
+                <!-- Inner solid ring -->
+                <circle cx="80" cy="80" r="58" fill="none" stroke="#C0392B" stroke-width="1"/>
+
+                <!-- Swiss Cross -->
+                <g transform="translate(80,80)">
+                  <circle cx="0" cy="0" r="22" fill="#C0392B"/>
+                  <rect x="-6.5" y="-13" width="13" height="26" rx="2"  fill="white"/>
+                  <rect x="-13"  y="-6.5" width="26" height="13" rx="2" fill="white"/>
+                </g>
+
+                <!-- Top text — centered at 12 o'clock -->
+                <text font-family="Georgia, serif" font-size="8" font-weight="700" fill="#C0392B" letter-spacing="1.2">
+                  <textPath href="#topArc" startOffset="50%" text-anchor="middle">FINMA • SCHWEIZ</textPath>
+                </text>
+
+                <!-- Bottom text — centered at 6 o'clock -->
+                <text font-family="Georgia, serif" font-size="7.5" font-weight="600" fill="#C0392B" letter-spacing="1.1">
+                  <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">GEPRÜFT • 2026</textPath>
+                </text>
+
+                <!-- Diamond separators at 9 o'clock and 3 o'clock -->
+                <text x="14" y="84" text-anchor="middle" font-size="9" fill="#C0392B">◆</text>
+                <text x="146" y="84" text-anchor="middle" font-size="9" fill="#C0392B">◆</text>
+              </svg>
+            </div>
+
+            <!-- Text content next to seal -->
+            <div style="flex: 1; padding-top: 6px;">
+              <div style="font-family: var(--font-serif); font-size: 18px; color: var(--color-navy); font-weight: 600; margin-bottom: 6px; line-height: 1.3;">Independent Asset Custody Attestation</div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                <span style="display: inline-flex; align-items: center; gap: 5px; background: #FEF0EF; border: 1px solid #C0392B; border-radius: 6px; padding: 3px 10px; font-size: 11px; font-weight: 700; color: #C0392B; font-family: var(--font-mono); letter-spacing: 0.5px;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                  FINMA REGULATED
+                </span>
+                <span style="display: inline-flex; align-items: center; gap: 5px; background: #f0fef4; border: 1px solid var(--color-lime); border-radius: 6px; padding: 3px 10px; font-size: 11px; font-weight: 700; color: var(--color-dark-sage); font-family: var(--font-mono); letter-spacing: 0.5px;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--color-dark-sage)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                  PwC VERIFIED
+                </span>
+              </div>
+              <p style="font-size: 13px; color: var(--color-taupe); line-height: 1.6; margin: 0;">
+                This attestation certifies that as of <strong>August 2026</strong>, all aTokens issued on Robinhood Chain and EVM networks are backed 1:1 by physical equities and treasuries held in segregated omnibus accounts at Swissquote Bank SA (Zug, Switzerland).
+              </p>
+            </div>
+          </div>
+
+          <div class="sim-details" style="background: rgba(255,255,255,0.7); margin-bottom: 0;">
+            <div class="detail-line">
+              <span>Independent Auditor</span>
+              <span class="mono-small" style="font-weight: 600;">PricewaterhouseCoopers AG (PwC Zurich)</span>
+            </div>
+            <div class="detail-line">
+              <span>Proof of Reserve Hash</span>
+              <span class="mono-small text-sage">0x7c9f...81e2 (SHA-256 Verified)</span>
+            </div>
+            <div class="detail-line">
+              <span>Swiss DLT Registration</span>
+              <span class="mono-small">Art. 973d Ledger-Based Security</span>
+            </div>
+            <div class="detail-line">
+              <span>Official Document</span>
+              <span class="mono-small text-sage">ARKAVA_Certificate_AVA.pdf</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="ARKAVA_Certificate_AVA.pdf" download="ARKAVA_Certificate_AVA.pdf" class="btn btn-primary"
+            style="flex: 1; min-width: 160px; text-align: center; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; gap: 6px;"
+            id="btn-download-attestation-pdf">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download PDF
+          </a>
+          <a href="ARKAVA_Certificate_AVA.pdf" target="_blank" class="btn btn-secondary"
+            style="flex: 1; min-width: 100px; text-align: center; display: inline-flex; align-items: center; justify-content: center; text-decoration: none;">View PDF</a>
+          <button class="btn btn-secondary" style="flex: 1; min-width: 80px;" id="btn-close-attestation">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Insurance & Trust Protection Modal -->
+    <div class="modal-backdrop" id="modal-insurance">
+      <div class="modal-card" style="max-width: 640px;">
+        <button class="modal-close" id="modal-insurance-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <img src="arkava.jpg" alt="Arkava AG"
+            style="width: 40px; height: 40px; border-radius: 10px; object-fit: cover;">
+          <div>
+            <h3 class="subheading-h3">$100,000,000 Insurance & Trust Protection</h3>
+            <span class="mono-small text-muted">Institutional Asset Protection Architecture</span>
+          </div>
+        </div>
+
+        <div class="insurance-badge-grid">
+          <div class="insurance-card-item">
+            <strong style="color: var(--color-navy); font-size: 14.5px;">FINMA Bank Deposit Guarantee</strong>
+            <span style="font-size: 12.5px; color: var(--color-taupe);">Full statutory protection under Swiss Banking
+              Act for omnibus custody accounts at Swissquote Bank SA.</span>
+            <span class="badge badge-accent" style="align-self: flex-start; font-size: 10px; margin-top: 4px;">FINMA
+              Protected</span>
+          </div>
+          <div class="insurance-card-item">
+            <strong style="color: var(--color-navy); font-size: 14.5px;">Lloyd's of London Specie Policy</strong>
+            <span style="font-size: 12.5px; color: var(--color-taupe);">$100M insurance policy covering physical stock
+              certificates & custodial fraud/theft.</span>
+            <span class="badge badge-accent" style="align-self: flex-start; font-size: 10px; margin-top: 4px;">$100M
+              Policy Active</span>
+          </div>
+          <div class="insurance-card-item">
+            <strong style="color: var(--color-navy); font-size: 14.5px;">Immunefi Bug Bounty Program</strong>
+            <span style="font-size: 12.5px; color: var(--color-taupe);">$250,000 USD reward pool for continuous whitehat
+              smart contract security audits.</span>
+            <span class="badge badge-standard" style="align-self: flex-start; font-size: 10px; margin-top: 4px;">$250k
+              Pool Active</span>
+          </div>
+          <div class="insurance-card-item">
+            <strong style="color: var(--color-navy); font-size: 14.5px;">Bankruptcy Remote Custody</strong>
+            <span style="font-size: 12.5px; color: var(--color-taupe);">Collateral assets remain ring-fenced under Swiss
+              DLT Art. 973d, segregated from bank liabilities.</span>
+            <span class="badge badge-standard"
+              style="align-self: flex-start; font-size: 10px; margin-top: 4px;">Bankruptcy Segregated</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;" id="btn-close-insurance">Close</button>
+      </div>
+    </div>
+
+    <!-- Transparent Fee Schedule Modal -->
+    <div class="modal-backdrop" id="modal-fees">
+      <div class="modal-card" style="max-width: 600px;">
+        <button class="modal-close" id="modal-fees-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <img src="arkava.jpg" alt="Arkava AG"
+            style="width: 40px; height: 40px; border-radius: 10px; object-fit: cover;">
+          <div>
+            <h3 class="subheading-h3">Transparent Institutional Fee Schedule</h3>
+            <span class="mono-small text-muted">Zero Hidden Costs Guarantee • Robinhood Chain L2</span>
+          </div>
+        </div>
+
+        <table class="fee-table">
+          <thead>
+            <tr>
+              <th>Protocol Service</th>
+              <th>Standard Fee</th>
+              <th>Promotional Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Stock Minting Fee</strong></td>
+              <td>0.10%</td>
+              <td><strong class="text-sage">0.00% (Launch Promo)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Token Redemption Fee</strong></td>
+              <td>0.10%</td>
+              <td><strong class="text-sage">0.00% (Launch Promo)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Annual Asset Management Fee</strong></td>
+              <td>0.00%</td>
+              <td><strong class="text-sage">0.00% (Zero Fee)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Execution Gas Fee</strong></td>
+              <td>Zero Gas</td>
+              <td><strong class="text-sage">Robinhood Chain Zero-Gas</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button class="btn btn-primary" style="width: 100%;" id="btn-close-fees">Close</button>
+      </div>
+    </div>
+
+    <!-- Wallet Connect Modal -->
+    <div class="modal-backdrop" id="modal-wallet">
+      <div class="modal-card">
+        <button class="modal-close" id="modal-wallet-close">✕</button>
+        <h3 class="subheading-h3" style="margin-bottom: 8px;">Connect Web3 Wallet</h3>
+        <p class="body-text text-muted" style="font-size: 14px; margin-bottom: 24px;">
+          Connect your wallet to hold, trade, or mint permissionless tokenized real-world assets.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+
+          <!-- MetaMask -->
+          <button class="card-standard wallet-option-btn" data-wallet="MetaMask"
+            style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;">
+            <div>
+              <strong style="display: block;">MetaMask</strong>
+              <span class="mono-small text-muted">Browser extension wallet</span>
+            </div>
+            <div
+              style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #fff; border-radius: 8px; border: 1px solid #eee;">
+              <svg width="26" height="26" viewBox="0 0 318.6 318.6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon fill="#E2761B" stroke="#E2761B" stroke-linecap="round" stroke-linejoin="round"
+                  points="274.1,35.5 174.6,109.4 193,65.8" />
+                <polygon fill="#E4761B" stroke="#E4761B" stroke-linecap="round" stroke-linejoin="round"
+                  points="44.4,35.5 143.1,110.1 125.6,65.8" />
+                <polygon fill="#D7C1B3" stroke="#D7C1B3" stroke-linecap="round" stroke-linejoin="round"
+                  points="238.3,206.8 211.8,247.4 268.5,263 284.8,207.7" />
+                <polygon fill="#233447" stroke="#233447" stroke-linecap="round" stroke-linejoin="round"
+                  points="33.9,207.7 50.1,263 106.8,247.4 80.3,206.8" />
+                <polygon fill="#E4761B" stroke="#E4761B" stroke-linecap="round" stroke-linejoin="round"
+                  points="103.6,138.2 87.8,162.1 144.1,164.6 142.1,104.1" />
+                <polygon fill="#E4761B" stroke="#E4761B" stroke-linecap="round" stroke-linejoin="round"
+                  points="214.9,138.2 175.9,103.4 174.6,164.6 230.8,162.1" />
+                <polygon fill="#F6851B" stroke="#F6851B" stroke-linecap="round" stroke-linejoin="round"
+                  points="106.8,247.4 140.6,230.9 111.4,208.1" />
+                <polygon fill="#F6851B" stroke="#F6851B" stroke-linecap="round" stroke-linejoin="round"
+                  points="177.9,230.9 211.8,247.4 207.1,208.1" />
+                <polygon fill="#E4761B" stroke="#E4761B" stroke-linecap="round" stroke-linejoin="round"
+                  points="211.8,247.4 177.9,230.9 180.6,253 180.3,262.3" />
+                <polygon fill="#E4761B" stroke="#E4761B" stroke-linecap="round" stroke-linejoin="round"
+                  points="106.8,247.4 138.3,262.3 138.1,253 140.6,230.9" />
+                <polygon fill="#D7C1B3" stroke="#D7C1B3" stroke-linecap="round" stroke-linejoin="round"
+                  points="138.8,193.5 110.6,185.2 130.5,176.1" />
+                <polygon fill="#D7C1B3" stroke="#D7C1B3" stroke-linecap="round" stroke-linejoin="round"
+                  points="179.7,193.5 187.9,176.1 208,185.2" />
+                <polygon fill="#233447" stroke="#233447" stroke-linecap="round" stroke-linejoin="round"
+                  points="106.8,247.4 111.6,206.8 80.3,207.7" />
+                <polygon fill="#233447" stroke="#233447" stroke-linecap="round" stroke-linejoin="round"
+                  points="207,206.8 211.8,247.4 238.3,207.7" />
+                <polygon fill="#CC6228" stroke="#CC6228" stroke-linecap="round" stroke-linejoin="round"
+                  points="230.8,162.1 174.6,164.6 179.8,193.5 187.9,176.1 208.1,185.2" />
+                <polygon fill="#CC6228" stroke="#CC6228" stroke-linecap="round" stroke-linejoin="round"
+                  points="110.6,185.2 130.5,176.1 138.8,193.5 144.1,164.6 87.8,162.1" />
+                <polygon fill="#E4761B" stroke="#E4761B" stroke-linecap="round" stroke-linejoin="round"
+                  points="87.8,162.1 111.4,208.1 110.6,185.2" />
+                <polygon fill="#E4761B" stroke="#E4761B" stroke-linecap="round" stroke-linejoin="round"
+                  points="208.1,185.2 207.1,208.1 230.8,162.1" />
+                <polygon fill="#F6851B" stroke="#F6851B" stroke-linecap="round" stroke-linejoin="round"
+                  points="144.1,164.6 138.8,193.5 145.4,227.6 146.9,182.7" />
+                <polygon fill="#F6851B" stroke="#F6851B" stroke-linecap="round" stroke-linejoin="round"
+                  points="174.6,164.6 171.9,182.6 173.1,227.6 179.8,193.5" />
+                <polygon fill="#FCD535" stroke="#FCD535" stroke-linecap="round" stroke-linejoin="round"
+                  points="179.8,193.5 173.1,227.6 177.9,230.9 207.1,208.1 208.1,185.2" />
+                <polygon fill="#FCD535" stroke="#FCD535" stroke-linecap="round" stroke-linejoin="round"
+                  points="110.6,185.2 111.4,208.1 140.6,230.9 145.4,227.6 138.8,193.5" />
+              </svg>
+            </div>
+          </button>
+
+          <!-- WalletConnect -->
+          <button class="card-standard wallet-option-btn" data-wallet="WalletConnect"
+            style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;">
+            <div>
+              <strong style="display: block;">WalletConnect</strong>
+              <span class="mono-small text-muted">Mobile QR scanner</span>
+            </div>
+            <div
+              style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #3B99FC; border-radius: 8px;">
+              <svg width="22" height="14" viewBox="0 0 40 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8.19 5.27C14.69-1.09 25.31-1.09 31.81 5.27L32.63 6.07C32.96 6.39 32.96 6.9 32.63 7.22L29.75 10.06C29.59 10.22 29.32 10.22 29.16 10.06L28.03 8.95C23.57 4.56 16.43 4.56 11.97 8.95L10.76 10.14C10.6 10.3 10.33 10.3 10.17 10.14L7.29 7.3C6.96 6.98 6.96 6.47 7.29 6.15L8.19 5.27ZM37.27 10.61L39.84 13.14C40.17 13.46 40.17 13.97 39.84 14.29L28.14 25.78C27.81 26.1 27.27 26.1 26.94 25.78L18.58 17.54C18.5 17.46 18.37 17.46 18.29 17.54L9.93 25.78C9.6 26.1 9.06 26.1 8.73 25.78L-2.84e-07 17.21C-0.33 16.89-0.33 16.38-2.84e-07 16.06L2.57 13.53C2.9 13.21 3.44 13.21 3.77 13.53L12.13 21.77C12.21 21.85 12.34 21.85 12.42 21.77L20.78 13.53C21.11 13.21 21.65 13.21 21.98 13.53L30.34 21.77C30.42 21.85 30.55 21.85 30.63 21.77L38.99 13.53C39.3 13.2 39.94 10.61 37.27 10.61Z"
+                  fill="white" />
+              </svg>
+            </div>
+          </button>
+
+          <!-- Coinbase Wallet -->
+          <button class="card-standard wallet-option-btn" data-wallet="Coinbase Wallet"
+            style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;">
+            <div>
+              <strong style="display: block;">Coinbase Wallet</strong>
+              <span class="mono-small text-muted">Self-custody mobile app</span>
+            </div>
+            <div
+              style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #0052FF; border-radius: 8px;">
+              <svg width="22" height="22" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="512" cy="512" r="512" fill="#0052FF" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M512 800C671.056 800 800 671.056 800 512C800 352.944 671.056 224 512 224C352.944 224 224 352.944 224 512C224 671.056 352.944 800 512 800ZM400 400C382.327 400 368 414.327 368 432V592C368 609.673 382.327 624 400 624H624C641.673 624 656 609.673 656 592V432C656 414.327 641.673 400 624 400H400Z"
+                  fill="white" />
+              </svg>
+            </div>
+          </button>
+
+          <!-- Rabby Wallet -->
+          <button class="card-standard wallet-option-btn" data-wallet="Rabby Wallet"
+            style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;">
+            <div>
+              <strong style="display: block;">Rabby Wallet</strong>
+              <span class="mono-small text-muted">DeFi power-user browser wallet</span>
+            </div>
+            <div
+              style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #8697FF; border-radius: 8px;">
+              <svg width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="50" cy="58" rx="28" ry="24" fill="white" />
+                <ellipse cx="50" cy="36" rx="20" ry="18" fill="white" />
+                <circle cx="42" cy="34" r="3.5" fill="#4C65FF" />
+                <circle cx="58" cy="34" r="3.5" fill="#4C65FF" />
+                <ellipse cx="50" cy="40" rx="7" ry="4" fill="#FF9F43" />
+                <ellipse cx="38" cy="18" rx="5" ry="11" fill="white" />
+                <ellipse cx="62" cy="18" rx="5" ry="11" fill="white" />
+              </svg>
+            </div>
+          </button>
+
+          <!-- OKX Wallet -->
+          <button class="card-standard wallet-option-btn" data-wallet="OKX Wallet"
+            style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;">
+            <div>
+              <strong style="display: block;">OKX Web3 Wallet</strong>
+              <span class="mono-small text-muted">Multi-chain EVM wallet</span>
+            </div>
+            <div
+              style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #000000; border-radius: 8px;">
+              <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="18" y="18" width="22" height="22" rx="3" fill="white" />
+                <rect x="60" y="18" width="22" height="22" rx="3" fill="white" />
+                <rect x="39" y="39" width="22" height="22" rx="3" fill="white" />
+                <rect x="18" y="60" width="22" height="22" rx="3" fill="white" />
+                <rect x="60" y="60" width="22" height="22" rx="3" fill="white" />
+              </svg>
+            </div>
+          </button>
+        </div>
+
+        <!-- Faucet section: hidden until wallet is connected (JS adds class 'show') -->
+        <div id="wallet-modal-faucet-section"
+          style="display:none; margin-top: 20px; border-top: 1px solid var(--color-border); padding-top: 16px;">
+          <p class="body-text text-muted" style="font-size: 13px; margin-bottom: 12px;">
+            Your wallet is connected. Claim test funds to start exploring the Arkava Testnet Sandbox.
+          </p>
+          <button class="btn btn-primary" id="btn-wallet-faucet" style="width: 100%;">
+            Claim 10,000 tUSDC — Testnet Faucet
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Official WalletConnect v2 Modal -->
+    <div class="modal-backdrop" id="modal-walletconnect">
+      <div class="modal-card" style="max-width: 460px; text-align: center; padding: 28px;">
+        <button class="modal-close" id="modal-walletconnect-close">✕</button>
+
+        <!-- Header with WalletConnect Brand Badge -->
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 8px;">
+          <div
+            style="width: 38px; height: 38px; background: #3B99FC; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(59,153,252,0.3);">
+            <svg width="24" height="15" viewBox="0 0 40 25" fill="none">
+              <path
+                d="M8.19 5.27C14.69-1.09 25.31-1.09 31.81 5.27L32.63 6.07C32.96 6.39 32.96 6.9 32.63 7.22L29.75 10.06C29.59 10.22 29.32 10.22 29.16 10.06L28.03 8.95C23.57 4.56 16.43 4.56 11.97 8.95L10.76 10.14C10.6 10.3 10.33 10.3 10.17 10.14L7.29 7.3C6.96 6.98 6.96 6.47 7.29 6.15L8.19 5.27ZM37.27 10.61L39.84 13.14C40.17 13.46 40.17 13.97 39.84 14.29L28.14 25.78C27.81 26.1 27.27 26.1 26.94 25.78L18.58 17.54C18.5 17.46 18.37 17.46 18.29 17.54L9.93 25.78C9.6 26.1 9.06 26.1 8.73 25.78L-2.84e-07 17.21C-0.33 16.89-0.33 16.38-2.84e-07 16.06L2.57 13.53C2.9 13.21 3.44 13.21 3.77 13.53L12.13 21.77C12.21 21.85 12.34 21.85 12.42 21.77L20.78 13.53C21.11 13.21 21.65 13.21 21.98 13.53L30.34 21.77C30.42 21.85 30.55 21.85 30.63 21.77L38.99 13.53C39.3 13.2 39.94 10.61 37.27 10.61Z"
+                fill="white" />
+            </svg>
+          </div>
+          <h3 class="subheading-h3" style="font-size: 20px;">WalletConnect v2</h3>
+        </div>
+
+        <p class="body-text text-muted" style="font-size: 13px; margin-bottom: 20px;">
+          Scan this QR code with any mobile Web3 wallet (Trust Wallet, Rainbow, Metamask Mobile, Coinbase, OKX).
+        </p>
+
+        <!-- Authentic QR Code Graphic Box -->
+        <div
+          style="background: #FFFFFF; padding: 20px; border-radius: 16px; border: 2px solid #E9ECF2; display: inline-block; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); position: relative;">
+          <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+            <rect x="10" y="10" width="50" height="50" rx="8" fill="#17190F" />
+            <rect x="20" y="20" width="30" height="30" rx="4" fill="#FFFFFF" />
+            <rect x="28" y="28" width="14" height="14" rx="2" fill="#3B99FC" />
+
+            <rect x="140" y="10" width="50" height="50" rx="8" fill="#17190F" />
+            <rect x="150" y="20" width="30" height="30" rx="4" fill="#FFFFFF" />
+            <rect x="158" y="28" width="14" height="14" rx="2" fill="#3B99FC" />
+
+            <rect x="10" y="140" width="50" height="50" rx="8" fill="#17190F" />
+            <rect x="20" y="150" width="30" height="30" rx="4" fill="#FFFFFF" />
+            <rect x="28" y="158" width="14" height="14" rx="2" fill="#3B99FC" />
+
+            <rect x="70" y="15" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="90" y="15" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="115" y="15" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="70" y="35" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="90" y="35" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="115" y="35" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="70" y="55" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="95" y="55" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="115" y="55" width="10" height="10" rx="2" fill="#17190F" />
+
+            <rect x="15" y="70" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="35" y="70" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="55" y="70" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="75" y="70" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="95" y="70" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="115" y="70" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="135" y="70" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="155" y="70" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="175" y="70" width="10" height="10" rx="2" fill="#3B99FC" />
+
+            <rect x="15" y="90" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="35" y="90" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="55" y="90" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="75" y="90" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="135" y="90" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="155" y="90" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="175" y="90" width="10" height="10" rx="2" fill="#17190F" />
+
+            <rect x="15" y="115" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="35" y="115" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="55" y="115" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="75" y="115" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="95" y="115" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="115" y="115" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="135" y="115" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="155" y="115" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="175" y="115" width="10" height="10" rx="2" fill="#3B99FC" />
+
+            <rect x="70" y="140" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="90" y="140" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="115" y="140" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="135" y="140" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="155" y="140" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="175" y="140" width="10" height="10" rx="2" fill="#17190F" />
+
+            <rect x="70" y="160" width="10" height="10" rx="2" fill="#3B99FC" />
+            <rect x="95" y="160" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="115" y="160" width="10" height="10" rx="2" fill="#17190F" />
+            <rect x="140" y="160" width="45" height="25" rx="6" fill="#3B99FC" />
+
+            <!-- Center WalletConnect Logo Overlay -->
+            <circle cx="100" cy="100" r="22" fill="#3B99FC" stroke="#FFFFFF" stroke-width="4" />
+            <path
+              d="M91 97C95 93 105 93 109 97L110 98C110.2 98.2 110.2 98.5 110 98.7L108 100.5C107.9 100.6 107.7 100.6 107.6 100.5L107 99.8C103.5 96.5 96.5 96.5 93 99.8L92.4 100.5C92.3 100.6 92.1 100.6 92 100.5L90 98.7C89.8 98.5 89.8 98.2 90 98L91 97ZM113 101.5L115 103.5C115.2 103.7 115.2 104 115 104.2L105.5 113C105.3 113.2 105 113.2 104.8 113L98 106.2C97.9 106.1 97.7 106.1 97.6 106.2L90.8 113C90.6 113.2 90.3 113.2 90.1 113L80.6 104.2C80.4 104 80.4 103.7 80.6 103.5L82.6 101.5C82.8 101.3 83.1 101.3 83.3 101.5L90.1 108.3C90.2 108.4 90.4 108.4 90.5 108.3L97.3 101.5C97.5 101.3 97.8 101.3 98 101.5L104.8 108.3C104.9 108.4 105.1 108.4 105.2 108.3L112 101.5C112.2 101.3 112.8 99.5 113 101.5Z"
+              fill="white" />
+          </svg>
+        </div>
+
+        <!-- Connection Status Badge -->
+        <div style="margin-bottom: 16px;">
+          <span class="badge badge-accent"
+            style="font-size: 12px; padding: 6px 14px; background: rgba(59,153,252,0.1); color: #2B7CD6; border: 1px solid rgba(59,153,252,0.25);">
+            ● Ready to Scan — Robinhood Chain (L2)
+          </span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <button class="btn btn-secondary" id="btn-copy-wc-uri" style="flex: 1; font-size: 12.5px; height: 40px;">
+            Copy URI
+          </button>
+          <button class="btn btn-primary" id="btn-simulate-wc-connect"
+            style="flex: 1; font-size: 12.5px; height: 40px; background: #3B99FC; border-color: #3B99FC;">
+            Connect Wallet
+          </button>
+        </div>
+
+        <!-- Desktop Browser Extension Fallback Link -->
+        <div style="border-top: 1px solid var(--color-warm-sand); padding-top: 14px;">
+          <span style="font-size: 12px; color: var(--color-taupe);">Prefer browser extension? </span>
+          <button id="btn-switch-to-extension-modal"
+            style="background: none; border: none; color: var(--color-navy); font-weight: 600; font-size: 12px; cursor: pointer; text-decoration: underline; padding: 0;">
+            Select MetaMask, Coinbase, or Rabby
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Web3 Wallet Connection & Personal Sign Confirmation Modal -->
+    <div class="modal-backdrop" id="modal-wallet-confirm">
+      <div class="modal-card" style="max-width: 440px; padding: 24px;">
+        <button class="modal-close" id="modal-wallet-confirm-close">✕</button>
+
+        <div
+          style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid var(--color-warm-sand); padding-bottom: 14px;">
+          <div
+            style="width: 38px; height: 38px; background: var(--color-lime); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--color-navy);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="subheading-h3" style="font-size: 17px;">Signature & Connection Request</h3>
+            <span class="mono-small text-muted" id="confirm-wallet-name">MetaMask • Robinhood Chain (L2)</span>
+          </div>
+        </div>
+
+        <div class="card-standard" style="padding: 16px; background: var(--color-cream); margin-bottom: 16px;">
+          <div
+            style="font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-taupe); margin-bottom: 4px;">
+            Origin DApp</div>
+          <strong
+            style="font-size: 14px; display: block; color: var(--color-navy); margin-bottom: 12px;">https://arkava.cloud</strong>
+
+          <div
+            style="font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-taupe); margin-bottom: 4px;">
+            Account Address</div>
+          <code class="mono-small" id="confirm-wallet-address"
+            style="font-size: 12.5px; color: var(--color-dark-sage); word-break: break-all;">0x71C86a2D49b258E10149a7407358172901309852</code>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label class="form-label" style="font-size: 12px;">Message to Sign (EIP-712 Authentication)</label>
+          <div
+            style="background: var(--color-navy); color: var(--color-lime-bright); padding: 12px; border-radius: 8px; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.5; white-space: pre-wrap;"
+            id="confirm-sign-message">Welcome to Arkava!
+            Sign this message to authenticate your wallet connection.
+            Nonce: 0x8f19b2c4
+            Timestamp: 2026-08-04T17:29:00Z</div>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary" id="btn-reject-wallet-confirm"
+            style="flex: 1; font-size: 13px; height: 42px;">
+            Reject
+          </button>
+          <button class="btn btn-primary" id="btn-approve-wallet-confirm"
+            style="flex: 1.2; font-size: 13px; height: 42px;">
+            Approve & Sign
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Profile & Wallet Settings Modal -->
+    <div class="modal-backdrop" id="modal-profile">
+      <div class="modal-card" style="max-width: 440px; padding: 24px;">
+        <button class="modal-close" id="modal-profile-close">✕</button>
+
+        <!-- Profile Header -->
+        <div
+          style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--color-warm-sand); padding-bottom: 16px;">
+          <div
+            style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-lime); display: flex; align-items: center; justify-content: center; color: var(--color-navy); flex-shrink: 0; box-shadow: 0 4px 12px rgba(166,185,44,0.3);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+          <div style="overflow: hidden; flex: 1;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h3 class="subheading-h3" style="font-size: 16px;">Web3 Connected Account</h3>
+              <span class="badge badge-accent" style="font-size: 10px; padding: 2px 6px;">Active</span>
+            </div>
+            <code class="mono-small" id="profile-full-address"
+              style="font-size: 12px; color: var(--color-dark-sage); word-break: break-all; display: block; margin-top: 2px;">0x9e0349b03d77d3c273a6be1dc77beba66cddc184</code>
+          </div>
+        </div>
+
+        <!-- Quick Portfolio Overview Card -->
+        <div class="card-standard"
+          style="padding: 16px; background: var(--color-cream); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span
+                style="font-size: 11px; text-transform: uppercase; color: var(--color-taupe); letter-spacing: 0.5px;">Available
+                Cash (tUSDC)</span>
+              <strong id="profile-cash-val"
+                style="font-size: 16px; color: var(--color-dark-sage); font-family: var(--font-mono); font-weight: 700;">$0.00
+                tUSDC</strong>
+            </div>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-warm-sand); padding-top: 6px; margin-top: 6px;">
+              <span
+                style="font-size: 11px; text-transform: uppercase; color: var(--color-taupe); letter-spacing: 0.5px;">Total
+                Net Portfolio</span>
+              <strong id="profile-portfolio-val"
+                style="font-size: 14px; color: var(--color-navy); font-family: var(--font-mono); font-weight: 700;">$0.00
+                USD</strong>
+            </div>
+          </div>
+          <button class="btn btn-secondary" id="btn-profile-open-portfolio"
+            style="font-size: 11px; height: 34px; padding: 0 10px; margin-left: 12px; flex-shrink: 0;">
+            Holdings
+          </button>
+        </div>
+
+        <!-- Profile Action List -->
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+          <button class="btn btn-primary" id="btn-profile-claim-faucet"
+            style="width: 100%; justify-content: flex-start; gap: 10px; font-size: 13px; height: 42px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+            Claim 10,000 tUSDC Testnet Faucet
+          </button>
+
+          <button class="btn btn-secondary" id="btn-profile-copy-address"
+            style="width: 100%; justify-content: flex-start; gap: 10px; font-size: 13px; height: 42px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            Copy Wallet Address
+          </button>
+
+          <button class="btn btn-secondary" id="btn-profile-copy-ref"
+            style="width: 100%; justify-content: flex-start; gap: 10px; font-size: 13px; height: 42px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+              <polyline points="16 6 12 2 8 6" />
+              <line x1="12" y1="2" x2="12" y2="15" />
+            </svg>
+            Copy Personal Referral Link
+          </button>
+        </div>
+
+        <!-- Disconnect Wallet Action -->
+        <div style="border-top: 1px solid var(--color-warm-sand); padding-top: 14px; text-align: center;">
+          <button id="btn-disconnect-wallet"
+            style="background: none; border: none; color: #D9534F; font-weight: 600; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Disconnect Wallet
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dedicated WalletConnect v2 Modal -->
+    <div class="modal-backdrop" id="modal-walletconnect">
+      <div class="modal-card" style="max-width: 440px; text-align: center; padding: 24px;">
+        <button class="modal-close" id="modal-walletconnect-close">✕</button>
+
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px;">
+          <div
+            style="width: 32px; height: 32px; background: #3B99FC; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="13" viewBox="0 0 40 25" fill="none">
+              <path
+                d="M8.19 5.27C14.69-1.09 25.31-1.09 31.81 5.27L32.63 6.07C32.96 6.39 32.96 6.9 32.63 7.22L29.75 10.06C29.59 10.22 29.32 10.22 29.16 10.06L28.03 8.95C23.57 4.56 16.43 4.56 11.97 8.95L10.76 10.14C10.6 10.3 10.33 10.3 10.17 10.14L7.29 7.3C6.96 6.98 6.96 6.47 7.29 6.15L8.19 5.27ZM37.27 10.61L39.84 13.14C40.17 13.46 40.17 13.97 39.84 14.29L28.14 25.78C27.81 26.1 27.27 26.1 26.94 25.78L18.58 17.54C18.5 17.46 18.37 17.46 18.29 17.54L9.93 25.78C9.6 26.1 9.06 26.1 8.73 25.78L-2.84e-07 17.21C-0.33 16.89-0.33 16.38-2.84e-07 16.06L2.57 13.53C2.9 13.21 3.44 13.21 3.77 13.53L12.13 21.77C12.21 21.85 12.34 21.85 12.42 21.77L20.78 13.53C21.11 13.21 21.65 13.21 21.98 13.53L30.34 21.77C30.42 21.85 30.55 21.85 30.63 21.77L38.99 13.53C39.3 13.2 39.94 10.61 37.27 10.61Z"
+                fill="white" />
+            </svg>
+          </div>
+          <h3 class="subheading-h3" style="font-size: 19px; margin-bottom: 0;">WalletConnect v2</h3>
+        </div>
+        <p class="body-text text-muted" style="font-size: 13.5px; margin-bottom: 16px;">Scan QR code with your
+          WalletConnect mobile wallet app</p>
+
+        <!-- Simulated QR Code Container -->
+        <div
+          style="background: #FFF; padding: 16px; border-radius: 16px; border: 2px solid #E7E2CF; display: inline-block; margin-bottom: 16px; position: relative;">
+          <svg width="170" height="170" viewBox="0 0 100 100" fill="#17190F">
+            <rect x="5" y="5" width="30" height="30" rx="4" fill="none" stroke="#17190F" stroke-width="6" />
+            <rect x="13" y="13" width="14" height="14" rx="2" fill="#3B99FC" />
+
+            <rect x="65" y="5" width="30" height="30" rx="4" fill="none" stroke="#17190F" stroke-width="6" />
+            <rect x="73" y="13" width="14" height="14" rx="2" fill="#3B99FC" />
+
+            <rect x="5" y="65" width="30" height="30" rx="4" fill="none" stroke="#17190F" stroke-width="6" />
+            <rect x="13" y="73" width="14" height="14" rx="2" fill="#3B99FC" />
+
+            <rect x="42" y="5" width="14" height="8" rx="1" />
+            <rect x="42" y="18" width="8" height="14" rx="1" />
+            <rect x="54" y="24" width="6" height="8" rx="1" />
+
+            <rect x="5" y="42" width="12" height="12" rx="1" />
+            <rect x="22" y="42" width="8" height="18" rx="1" />
+
+            <rect x="42" y="42" width="16" height="16" rx="2" fill="#3B99FC" />
+            <rect x="65" y="42" width="12" height="8" rx="1" />
+            <rect x="82" y="42" width="13" height="13" rx="1" />
+
+            <rect x="42" y="65" width="12" height="12" rx="1" />
+            <rect x="60" y="65" width="18" height="8" rx="1" />
+            <rect x="82" y="62" width="13" height="14" rx="1" />
+
+            <rect x="42" y="82" width="18" height="13" rx="1" />
+            <rect x="65" y="82" width="12" height="13" rx="1" />
+            <rect x="82" y="82" width="13" height="13" rx="1" />
+          </svg>
+          <div
+            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #FFF; padding: 4px; border-radius: 8px; border: 1px solid #E7E2CF;">
+            <div
+              style="width: 24px; height: 24px; background: #3B99FC; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+              <svg width="14" height="9" viewBox="0 0 40 25" fill="none">
+                <path
+                  d="M8.19 5.27C14.69-1.09 25.31-1.09 31.81 5.27L32.63 6.07C32.96 6.39 32.96 6.9 32.63 7.22L29.75 10.06C29.59 10.22 29.32 10.22 29.16 10.06L28.03 8.95C23.57 4.56 16.43 4.56 11.97 8.95L10.76 10.14C10.6 10.3 10.33 10.3 10.17 10.14L7.29 7.3C6.96 6.98 6.96 6.47 7.29 6.15L8.19 5.27ZM37.27 10.61L39.84 13.14C40.17 13.46 40.17 13.97 39.84 14.29L28.14 25.78C27.81 26.1 27.27 26.1 26.94 25.78L18.58 17.54C18.5 17.46 18.37 17.46 18.29 17.54L9.93 25.78C9.6 26.1 9.06 26.1 8.73 25.78L-2.84e-07 17.21C-0.33 16.89-0.33 16.38-2.84e-07 16.06L2.57 13.53C2.9 13.21 3.44 13.21 3.77 13.53L12.13 21.77C12.21 21.85 12.34 21.85 12.42 21.77L20.78 13.53C21.11 13.21 21.65 13.21 21.98 13.53L30.34 21.77C30.42 21.85 30.55 21.85 30.63 21.77L38.99 13.53C39.3 13.2 39.94 10.61 37.27 10.61Z"
+                  fill="white" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+          <button class="btn btn-secondary" id="btn-copy-wc-uri" style="flex: 1; height: 36px; font-size: 12.5px;">Copy
+            URI Link</button>
+          <button class="btn btn-primary" id="btn-simulate-wc-connect"
+            style="flex: 1; height: 36px; font-size: 12.5px;">Connect Mobile Wallet</button>
+        </div>
+
+        <span class="mono-small text-muted" style="font-size: 11px; display: block;">Supported: Trust Wallet, Rainbow,
+          Metamask Mobile, Zerion, Safe</span>
+      </div>
+    </div>
+
+    <!-- Asset Details Modal -->
+    <div class="modal-backdrop" id="modal-asset-detail">
+      <div class="modal-card" style="max-width: 600px;">
+        <button class="modal-close" id="modal-asset-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div class="asset-icon" id="modal-asset-icon">A</div>
+          <div>
+            <h3 class="subheading-h3" id="modal-asset-name">aAAPL</h3>
+            <span class="mono-small text-muted" id="modal-asset-isin">ISIN: US0378331005</span>
+          </div>
+        </div>
+
+        <div class="sim-details" style="margin-bottom: 20px;">
+          <div class="detail-line">
+            <span class="text-muted">Underlying Instrument</span>
+            <span class="mono-small" id="modal-asset-underlier">Apple Inc. Common Stock</span>
+          </div>
+          <div class="detail-line">
+            <span class="text-muted">7-Day Yield / APY</span>
+            <span class="mono-small text-sage" style="font-weight: 600;" id="modal-asset-yield">+1.20% DIV</span>
+          </div>
+          <div class="detail-line">
+            <span class="text-muted">Current Market Price</span>
+            <span class="mono-small" id="modal-asset-price">$224.50 USD</span>
+          </div>
+          <div class="detail-line">
+            <span class="text-muted">Primary Custodian</span>
+            <span class="mono-small">Swissquote Bank SA</span>
+          </div>
+          <div class="detail-line">
+            <span class="text-muted">Regulatory Classification</span>
+            <span class="mono-small">Swiss DLT Ledger-Based Security</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px;">
+          <button class="btn btn-primary" style="flex: 1;" id="modal-btn-open-terminal">Open Trading Terminal</button>
+          <button class="btn btn-secondary" style="flex: 1;" id="modal-btn-close-action">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tokenomics Modal -->
+    <div class="modal-backdrop" id="modal-tokenomics">
+      <div class="modal-card" style="max-width: 720px;">
+        <button class="modal-close" id="modal-tokenomics-close">✕</button>
+
+        <!-- Header -->
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid var(--color-warm-sand); padding-bottom: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <img src="arkava.jpg" alt="Arkava"
+              style="width: 40px; height: 40px; border-radius: 10px; object-fit: cover;">
+            <div>
+              <h3 class="subheading-h3">$AVA — Governance & Utility Token</h3>
+              <span class="mono-small text-muted">Robinhood Chain L2 • ERC-20 Standard • Pre-Launch Phase</span>
+            </div>
+          </div>
+          <span class="badge-testnet">Pre-Launch</span>
+        </div>
+
+        <!-- Key Metrics Row -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;">
+          <div
+            style="background: var(--color-cream); border: 1px solid var(--color-warm-sand); border-radius: var(--radius-12); padding: 14px; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: var(--color-navy);">
+              1,000,000,000</div>
+            <div
+              style="font-size: 11.5px; color: var(--color-taupe); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+              Total Supply ($AVA)</div>
+          </div>
+          <div
+            style="background: var(--color-cream); border: 1px solid var(--color-warm-sand); border-radius: var(--radius-12); padding: 14px; text-align: center;">
+            <div
+              style="font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: var(--color-dark-sage);">0
+            </div>
+            <div
+              style="font-size: 11.5px; color: var(--color-taupe); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+              Circulating Supply</div>
+          </div>
+          <div
+            style="background: var(--color-cream); border: 1px solid var(--color-warm-sand); border-radius: var(--radius-12); padding: 14px; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: var(--color-navy);">Q3
+              2026</div>
+            <div
+              style="font-size: 11.5px; color: var(--color-taupe); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+              Token Generation Event</div>
+          </div>
+        </div>
+
+        <!-- Token Distribution Visual -->
+        <div style="margin-bottom: 24px;">
+          <h4
+            style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-taupe); margin-bottom: 14px;">
+            Token Allocation Breakdown</h4>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+
+            <div class="token-dist-row">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--color-navy);">Protocol Reserve &amp;
+                  Liquidity</span>
+                <span
+                  style="font-family: var(--font-mono); font-size: 13px; color: var(--color-lime-muted); font-weight: 600;">30%
+                  — 300,000,000 $AVA</span>
+              </div>
+              <div style="height: 8px; background: var(--color-warm-sand); border-radius: 99px; overflow: hidden;">
+                <div style="width: 30%; height: 100%; background: var(--color-lime); border-radius: 99px;"></div>
+              </div>
+              <span style="font-size: 12px; color: var(--color-taupe); margin-top: 4px; display: block;">Liquidity
+                backstop for aToken redemptions &amp; oracle operations</span>
+            </div>
+
+            <div class="token-dist-row">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--color-navy);">Institutional Partners
+                  &amp; Strategic</span>
+                <span
+                  style="font-family: var(--font-mono); font-size: 13px; color: var(--color-lime-muted); font-weight: 600;">20%
+                  — 200,000,000 $AVA</span>
+              </div>
+              <div style="height: 8px; background: var(--color-warm-sand); border-radius: 99px; overflow: hidden;">
+                <div style="width: 20%; height: 100%; background: var(--color-dark-sage); border-radius: 99px;"></div>
+              </div>
+              <span style="font-size: 12px; color: var(--color-taupe); margin-top: 4px; display: block;">Authorized
+                Participants (AP), Swissquote, strategic VCs — 2yr vesting</span>
+            </div>
+
+            <div class="token-dist-row">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--color-navy);">Community &amp; Ecosystem
+                  Incentives</span>
+                <span
+                  style="font-family: var(--font-mono); font-size: 13px; color: var(--color-lime-muted); font-weight: 600;">20%
+                  — 200,000,000 $AVA</span>
+              </div>
+              <div style="height: 8px; background: var(--color-warm-sand); border-radius: 99px; overflow: hidden;">
+                <div style="width: 20%; height: 100%; background: #6B8E23; border-radius: 99px;"></div>
+              </div>
+              <span style="font-size: 12px; color: var(--color-taupe); margin-top: 4px; display: block;">Staking
+                rewards, governance participation, and developer grants</span>
+            </div>
+
+            <div class="token-dist-row">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--color-navy);">Team &amp; Core
+                  Contributors</span>
+                <span
+                  style="font-family: var(--font-mono); font-size: 13px; color: var(--color-lime-muted); font-weight: 600;">15%
+                  — 150,000,000 $AVA</span>
+              </div>
+              <div style="height: 8px; background: var(--color-warm-sand); border-radius: 99px; overflow: hidden;">
+                <div style="width: 15%; height: 100%; background: #8B9467; border-radius: 99px;"></div>
+              </div>
+              <span style="font-size: 12px; color: var(--color-taupe); margin-top: 4px; display: block;">12-month cliff,
+                24-month linear vesting from TGE</span>
+            </div>
+
+            <div class="token-dist-row">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--color-navy);">Public Sale &amp; Launch
+                  Allocation</span>
+                <span
+                  style="font-family: var(--font-mono); font-size: 13px; color: var(--color-lime-muted); font-weight: 600;">10%
+                  — 100,000,000 $AVA</span>
+              </div>
+              <div style="height: 8px; background: var(--color-warm-sand); border-radius: 99px; overflow: hidden;">
+                <div style="width: 10%; height: 100%; background: #A0A560; border-radius: 99px;"></div>
+              </div>
+              <span style="font-size: 12px; color: var(--color-taupe); margin-top: 4px; display: block;">IDO / public
+                launch via compliant launchpad — Q3 2026</span>
+            </div>
+
+            <div class="token-dist-row">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span style="font-size: 13.5px; font-weight: 600; color: var(--color-navy);">Foundation &amp; Swiss AG
+                  Treasury</span>
+                <span
+                  style="font-family: var(--font-mono); font-size: 13px; color: var(--color-lime-muted); font-weight: 600;">5%
+                  — 50,000,000 $AVA</span>
+              </div>
+              <div style="height: 8px; background: var(--color-warm-sand); border-radius: 99px; overflow: hidden;">
+                <div style="width: 5%; height: 100%; background: #C5C98A; border-radius: 99px;"></div>
+              </div>
+              <span style="font-size: 12px; color: var(--color-taupe); margin-top: 4px; display: block;">Long-term
+                operational reserve under Arkava AG, Zug Switzerland</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Token Utility -->
+        <div
+          style="background: var(--color-cream); border: 1px solid var(--color-warm-sand); border-radius: var(--radius-12); padding: 16px; margin-bottom: 20px;">
+          <h4
+            style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-taupe); margin-bottom: 12px;">
+            $AVA Token Utility</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div style="display: flex; align-items: flex-start; gap: 8px;">
+              <span style="font-size: 14px; flex-shrink: 0; margin-top: 1px; color: var(--color-lime);">&#10003;</span>
+              <span style="font-size: 13px; color: var(--color-taupe);">On-chain governance voting for protocol
+                parameters</span>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 8px;">
+              <span style="font-size: 14px; flex-shrink: 0; margin-top: 1px; color: var(--color-lime);">&#10003;</span>
+              <span style="font-size: 13px; color: var(--color-taupe);">Staking for minting priority &amp; fee discounts
+                (up to 80%)</span>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 8px;">
+              <span style="font-size: 14px; flex-shrink: 0; margin-top: 1px; color: var(--color-lime);">&#10003;</span>
+              <span style="font-size: 13px; color: var(--color-taupe);">Authorized Participant collateral for AP
+                licensing</span>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 8px;">
+              <span style="font-size: 14px; flex-shrink: 0; margin-top: 1px; color: var(--color-lime);">&#10003;</span>
+              <span style="font-size: 13px; color: var(--color-taupe);">Yield boosting on Institutional Vault
+                deposits</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Legal Disclaimer -->
+        <p
+          style="font-size: 11.5px; color: var(--color-taupe); line-height: 1.5; margin-bottom: 16px; border-left: 3px solid var(--color-warm-sand); padding-left: 12px;">
+          $AVA tokens are not yet issued or tradeable. This is a pre-launch allocation overview only. Token distribution
+          subject to Swiss regulatory approval prior to TGE. Not offered to US Persons under SEC Regulation S.
+        </p>
+
+        <button class="btn btn-primary" style="width: 100%;" id="btn-close-tokenomics">Close</button>
+      </div>
+    </div>
+
+    <!-- Legal Prospectus Modal -->
+    <div class="modal-backdrop" id="modal-prospectus">
+      <div class="modal-card" style="max-width: 680px;">
+        <button class="modal-close" id="modal-prospectus-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <img src="arkava.jpg" alt="Arkava" style="width: 36px; height: 36px; border-radius: 8px; object-fit: cover;">
+          <div>
+            <h3 class="subheading-h3">Swiss DLT Legal Prospectus</h3>
+            <span class="mono-small text-muted">Swiss DLT Act Compliance Registration</span>
+          </div>
+        </div>
+
+        <div
+          style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; max-height: 400px; overflow-y: auto;">
+          <div class="card-standard">
+            <strong style="font-size: 15px; display: block; margin-bottom: 4px;">1. Swiss Regulatory Framework</strong>
+            <p style="font-size: 13.5px; color: var(--color-taupe); line-height: 1.5;">
+              Arkava tokens are issued under Article 973d of the Swiss Code of Obligations (*Ledger-Based Securities*).
+              Tokens represent uncertificated rights tied directly to underlying assets.
+            </p>
+          </div>
+
+          <div class="card-standard">
+            <strong style="font-size: 15px; display: block; margin-bottom: 4px;">2. Custody & Insolvency
+              Protection</strong>
+            <p style="font-size: 13.5px; color: var(--color-taupe); line-height: 1.5;">
+              Underlying securities are held in segregated, bankruptcy-remote accounts at Swissquote Bank SA (FINMA
+              Regulated). Assets do not form part of the custodian's balance sheet.
+            </p>
+          </div>
+
+          <div class="card-standard">
+            <strong style="font-size: 15px; display: block; margin-bottom: 4px;">3. ISIN Registration</strong>
+            <p style="font-size: 13.5px; color: var(--color-taupe); line-height: 1.5;">
+              Each tokenized asset corresponds to a registered ISIN (International Securities Identification Number)
+              cross-referenced in the on-chain registry.
+            </p>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;" id="btn-close-prospectus">Close</button>
+      </div>
+    </div>
+
+    <!-- Security Audit Modal -->
+    <div class="modal-backdrop" id="modal-audit">
+      <div class="modal-card" style="max-width: 680px;">
+        <button class="modal-close" id="modal-audit-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <img src="arkava.jpg" alt="Arkava" style="width: 36px; height: 36px; border-radius: 8px; object-fit: cover;">
+          <div>
+            <h3 class="subheading-h3">Security Audits & Verification</h3>
+            <span class="mono-small text-muted">Independent Smart Contract Audit Status</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+          <div class="card-standard"
+            style="display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--color-lime);">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <img src="openzeppelin.png" alt="OpenZeppelin" style="width: 28px; height: 28px; object-fit: contain;">
+              <div>
+                <strong style="font-size: 15px; display: block;">OpenZeppelin Security Audit</strong>
+                <span class="mono-small text-sage" style="font-weight: 600;">Status: PASSED (0 Critical, 0 High
+                  Vulnerabilities)</span>
+              </div>
+            </div>
+            <span class="badge badge-accent">Verified</span>
+          </div>
+
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 15px; display: block;">CertiK Formal Verification</strong>
+              <span class="mono-small text-muted">Audit Score: 98.4 / 100 • Robinhood L2 Scope</span>
+            </div>
+            <span class="badge badge-standard">Passed</span>
+          </div>
+
+          <div class="card-standard">
+            <strong style="font-size: 14px; display: block; margin-bottom: 4px;">Immunefi Bug Bounty Program</strong>
+            <p style="font-size: 13px; color: var(--color-taupe);">Maximum bounty pool of $250,000 USD for security
+              researchers reporting contract vulnerabilities.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; flex-direction: column;">
+          <a href="ARKAVA_OpenZeppelin_Audit.pdf" download="ARKAVA_OpenZeppelin_Audit.pdf" class="btn btn-secondary"
+            style="width: 100%; text-align: center; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;">
+            Download Security Audit Certificate (PDF)
+          </a>
+          <button class="btn btn-primary" style="width: 100%;" id="btn-close-audit">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Developer Modal 1: Documentation -->
+    <div class="modal-backdrop" id="modal-docs">
+      <div class="modal-card" style="max-width: 680px;">
+        <button class="modal-close" id="modal-docs-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <img src="arkava.jpg" alt="Arkava" style="width: 36px; height: 36px; border-radius: 8px; object-fit: cover;">
+          <div>
+            <h3 class="subheading-h3">Arkava Documentation</h3>
+            <span class="mono-small text-muted">v2.4.0 • Robinhood Chain & Swiss DLT Compliant</span>
+          </div>
+        </div>
+
+        <div
+          style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; max-height: 400px; overflow-y: auto; padding-right: 8px;">
+          <div class="card-standard">
+            <strong style="display: block; margin-bottom: 4px;">1. Architecture Overview</strong>
+            <p style="font-size: 14px; color: var(--color-taupe); line-height: 1.5;">
+              Arkava tokenizes real-world assets into ERC-20 standard tokens (aTokens) on Robinhood Chain backed 1:1 by
+              underlying securities held in regulated Swiss custody accounts.
+            </p>
+          </div>
+
+          <div class="card-standard">
+            <strong style="display: block; margin-bottom: 4px;">2. Smart Contract Standard</strong>
+            <p style="font-size: 14px; color: var(--color-taupe); line-height: 1.5;">
+              Each aToken implements ERC-20, ERC-2612 (Permit), and Swiss DLT Tokenized Asset ledger specifications with
+              automated Chainlink Proof-of-Reserve validation on Robinhood L2.
+            </p>
+          </div>
+
+          <div class="card-standard">
+            <strong style="display: block; margin-bottom: 4px;">3. Mint & Redeem API Endpoints</strong>
+            <pre
+              style="background: var(--color-navy); color: var(--color-lime-bright); padding: 12px; border-radius: 8px; font-family: var(--font-mono); font-size: 12px; overflow-x: auto; margin-top: 8px;">POST /v1/mint/quote
+Host: api.arkava.cloud
+Header: Authorization: Bearer {API_KEY}
+Payload: { "asset": "aAAPL", "usdAmount": 10000, "chain": "robinhood" }</pre>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;" id="btn-close-docs">Close</button>
+      </div>
+    </div>
+
+    <!-- Developer Modal 2: Smart Contracts Explorer -->
+    <div class="modal-backdrop" id="modal-contracts">
+      <div class="modal-card" style="max-width: 680px;">
+        <button class="modal-close" id="modal-contracts-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <img src="arkava.jpg" alt="Arkava" style="width: 36px; height: 36px; border-radius: 8px; object-fit: cover;">
+          <div>
+            <h3 class="subheading-h3">Deployed Smart Contracts</h3>
+            <span class="mono-small text-muted">Robinhood Chain & EVM Registry</span>
+          </div>
+        </div>
+
+        <div
+          style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; max-height: 380px; overflow-y: auto;">
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <img src="robinhood.png" alt="Robinhood"
+                style="width: 24px; height: 24px; border-radius: 6px; object-fit: cover;">
+              <div>
+                <strong
+                  style="font-size: 15px; display: block; color: var(--color-navy);">RobinhoodArkavaFactory</strong>
+                <span class="mono-small text-muted">0x5050a2D6489a74073581729013098520x43a88b1e</span>
+              </div>
+            </div>
+            <span class="badge badge-accent">Robinhood L2</span>
+          </div>
+
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 14px; display: block;">aAAPL Token Contract</strong>
+              <span class="mono-small text-muted">0x3918a9Bf3900a892b11295A6E8203c988942b012</span>
+            </div>
+            <span class="badge badge-standard">ERC-20</span>
+          </div>
+
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 14px; display: block;">aNVDA Token Contract</strong>
+              <span class="mono-small text-muted">0x78a0A7569e2c6081e7d825c9388B9761e0b5103c</span>
+            </div>
+            <span class="badge badge-standard">ERC-20</span>
+          </div>
+
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 14px; display: block;">Chainlink Proof-of-Reserve Feed</strong>
+              <span class="mono-small text-muted">0x514910771AF9Ca656af840dff83E8264EcF986CA</span>
+            </div>
+            <span class="badge badge-warning">Oracle</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;" id="btn-close-contracts">Close</button>
+      </div>
+    </div>
+
+    <!-- Developer Modal 3: GitHub Repository -->
+    <div class="modal-backdrop" id="modal-github">
+      <div class="modal-card" style="max-width: 650px;">
+        <button class="modal-close" id="modal-github-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div
+            style="width: 36px; height: 36px; background-color: #000; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFFFFF">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="subheading-h3">Arkava Open Source Repositories</h3>
+            <span class="mono-small text-muted">github.com/ArkavaCloud</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+          <div class="card-standard">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <strong style="font-size: 15px;">ArkavaCloud / ArkavaCloud</strong>
+              <span class="badge badge-accent" style="display: flex; align-items: center; gap: 4px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                Main Repo
+              </span>
+            </div>
+            <p style="font-size: 13px; color: var(--color-taupe);">Swiss DLT Art. 973d compliant Real-World Asset (RWA) tokenization protocol for US Equities, ETFs, and Treasury Bonds backed 1:1 by Swissquote Bank SA custody on Robinhood Chain L2.</p>
+          </div>
+
+          <div class="card-standard">
+            <pre
+              style="background: var(--color-navy); color: var(--color-lime-bright); padding: 12px; border-radius: 8px; font-family: var(--font-mono); font-size: 12px;">$ git clone https://github.com/ArkavaCloud/ArkavaCloud.git</pre>
+          </div>
+
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 14px; display: block;">View on GitHub</strong>
+              <span class="mono-small text-muted">github.com/ArkavaCloud/ArkavaCloud</span>
+            </div>
+            <a href="https://github.com/ArkavaCloud/ArkavaCloud" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size: 12px; height: 32px; padding: 0 12px; text-decoration: none;">Open →</a>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;" id="btn-close-github">Close</button>
+      </div>
+    </div>
+
+    <!-- Developer Modal 4: Chain Registries -->
+    <div class="modal-backdrop" id="modal-chains">
+      <div class="modal-card" style="max-width: 650px;">
+        <button class="modal-close" id="modal-chains-close">✕</button>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <img src="arkava.jpg" alt="Arkava" style="width: 36px; height: 36px; border-radius: 8px; object-fit: cover;">
+          <div>
+            <h3 class="subheading-h3">Chain Registries & Supported Networks</h3>
+            <span class="mono-small text-muted">Robinhood Chain & EVM Compatible Networks</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+          <div class="card-standard"
+            style="display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--color-lime);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <img src="robinhood.png" alt="Robinhood"
+                style="width: 24px; height: 24px; border-radius: 6px; object-fit: cover;">
+              <div>
+                <strong style="font-size: 15px; display: block; color: var(--color-navy);">Robinhood Chain (L2)</strong>
+                <span class="mono-small text-muted">Chain ID: 5050 • Zero Gas • Primary Stock & RWA Chain</span>
+              </div>
+            </div>
+            <span class="badge badge-accent">Primary Chain</span>
+          </div>
+
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 14px; display: block;">Ethereum Mainnet</strong>
+              <span class="mono-small text-muted">Chain ID: 1 • Settlement Layer</span>
+            </div>
+            <span class="badge badge-standard">Settlement</span>
+          </div>
+
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 14px; display: block;">Arbitrum One</strong>
+              <span class="mono-small text-muted">Chain ID: 42161 • L2 Rollup</span>
+            </div>
+            <span class="badge badge-standard">Active</span>
+          </div>
+
+          <div class="card-standard" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 14px; display: block;">Base (Coinbase L2)</strong>
+              <span class="mono-small text-muted">Chain ID: 8453 • L2 Rollup</span>
+            </div>
+            <span class="badge badge-standard">Active</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;" id="btn-close-chains">Close</button>
+      </div>
+    </div>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="#" class="brand-logo" style="color: var(--color-cream);">
+              <img src="arkava.jpg" alt="Arkava Logo"
+                style="width: 34px; height: 34px; border-radius: 8px; object-fit: cover;">
+              <span>Arkava</span>
+            </a>
+            <p style="font-size: 13px; color: var(--color-taupe); line-height: 1.5; margin-bottom: 8px;">
+              Bridging institutional assets to decentralised finance on Robinhood Chain. ERC-20 tokens 1:1
+              collateralized by real-world securities.
+            </p>
+            <p
+              style="font-size: 12.5px; color: var(--color-lime-bright); margin-bottom: 14px; font-family: var(--font-mono);">
+              Official Contact: <a href="mailto:official@arkava.cloud"
+                style="color: var(--color-lime-bright); text-decoration: underline;">official@arkava.cloud</a>
+            </p>
+            <!-- Social Links -->
+            <div class="social-links">
+              <a href="https://x.com/Arkavacloud" class="social-link" id="social-x" title="Twitter / X" aria-label="Arkava on X" target="_blank" rel="noopener noreferrer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
+              <a href="https://t.me/arkavaclouddev" class="social-link" id="social-telegram" title="Telegram" aria-label="Arkava Telegram" target="_blank" rel="noopener noreferrer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                </svg>
+              </a>
+              <a href="https://github.com/ArkavaCloud/ArkavaCloud" class="social-link" id="social-github" title="GitHub" aria-label="Arkava GitHub" target="_blank" rel="noopener noreferrer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="footer-column-title">Products</h4>
+            <ul class="footer-links">
+              <li><a href="#explorer" class="footer-link">aAAPL (Apple Inc)</a></li>
+              <li><a href="#explorer" class="footer-link">aNVDA (NVIDIA)</a></li>
+              <li><a href="#explorer" class="footer-link">aCOIN (Coinbase)</a></li>
+              <li><a href="#explorer" class="footer-link">aTSLA (Tesla Inc)</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-column-title">Transparency & Governance</h4>
+            <ul class="footer-links">
+              <li><a href="#reserves" class="footer-link">Proof of Reserves</a></li>
+              <li><a href="#" class="footer-link" id="footer-link-tokenomics">$AVA Tokenomics</a></li>
+              <li><a href="#" class="footer-link" id="footer-link-prospectus">Legal Prospectus</a></li>
+              <li><a href="#" class="footer-link" id="footer-link-audit">Security Audits</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-column-title">Developers</h4>
+            <ul class="footer-links">
+              <li><a href="docs.html" class="footer-link">Documentation</a></li>
+              <li><a href="#" class="footer-link" id="footer-link-contracts">Smart Contracts</a></li>
+              <li><a href="#" class="footer-link" id="footer-link-github">GitHub Repository</a></li>
+              <li><a href="#" class="footer-link" id="footer-link-chains">Chain Registries</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 Arkava AG. All rights reserved. Zug, Switzerland.</span>
+          <span>Arkava tokens are not offered to US Persons.</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+    <script type="module" src="src/js/main.js"></script>
+</body>
+
+</html>

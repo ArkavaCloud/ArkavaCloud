@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arkava Documentation — Robinhood Chain RWA Standard</title>
+  <meta name="description" content="Official technical documentation for Arkava: Tokenized US Equities and Real-World Assets on Robinhood Chain backed 1:1 by Swiss custody.">
+  
+  <!-- Favicon & Apple Touch Icon -->
+  <link rel="icon" type="image/jpeg" href="arkava.jpg">
+  <link rel="apple-touch-icon" href="arkava.jpg">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Open Graph / Facebook / Telegram Social Preview Tags -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://arkava.cloud/docs.html">
+  <meta property="og:title" content="Arkava Technical Documentation & Architecture">
+  <meta property="og:description" content="Official technical documentation for Arkava: Tokenized US Equities and Real-World Assets on Robinhood Chain backed 1:1 by Swiss custody.">
+  <meta property="og:image" content="arkava_banner.jpg">
+
+  <!-- Twitter / X Social Share Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://arkava.cloud/docs.html">
+  <meta name="twitter:title" content="Arkava Technical Documentation & Architecture">
+  <meta name="twitter:description" content="Official technical documentation for Arkava: Tokenized US Equities and Real-World Assets on Robinhood Chain backed 1:1 by Swiss custody.">
+  <meta name="twitter:image" content="arkava_banner.jpg">
+
+  <!-- Google Fonts: Fraunces, Space Grotesk, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Documentation Layout Specific Styles */
+    .docs-wrapper {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--space-40);
+      padding-top: var(--space-40);
+      padding-bottom: var(--space-48);
+      min-height: calc(100vh - 140px);
+    }
+
+    .docs-sidebar {
+      position: sticky;
+      top: 88px;
+      height: calc(100vh - 120px);
+      overflow-y: auto;
+      padding-right: var(--space-16);
+      border-right: 1px solid var(--color-warm-sand);
+    }
+
+    .docs-nav-group {
+      margin-bottom: var(--space-24);
+    }
+
+    .docs-nav-title {
+      font-family: var(--font-sans);
+      font-size: 11.52px;
+      font-weight: 600;
+      color: var(--color-taupe);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--space-12);
+    }
+
+    .docs-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .docs-nav-item a {
+      font-family: var(--font-sans);
+      font-size: 14.5px;
+      color: var(--color-navy);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: var(--radius-6);
+      display: block;
+      transition: all 0.2s ease;
+    }
+
+    .docs-nav-item a:hover, .docs-nav-item a.active {
+      background-color: var(--color-warm-sand);
+      color: var(--color-dark-sage);
+      font-weight: 600;
+    }
+
+    .docs-content {
+      max-width: 880px;
+    }
+
+    .docs-article {
+      margin-bottom: var(--space-48);
+      padding-bottom: var(--space-32);
+      border-bottom: 1px solid var(--color-warm-sand);
+    }
+
+    .docs-article:last-child {
+      border-bottom: none;
+    }
+
+    .docs-article h2 {
+      margin-bottom: var(--space-16);
+    }
+
+    .docs-article p {
+      margin-bottom: var(--space-16);
+      color: #2D3023;
+    }
+
+    .code-block {
+      background-color: var(--color-navy);
+      color: var(--color-lime-bright);
+      padding: var(--space-20);
+      border-radius: var(--radius-12);
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: var(--space-20) 0;
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+
+    .code-title {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: #A3A693;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 6px;
+    }
+
+    @media (max-width: 1023px) {
+      .docs-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .docs-sidebar {
+        position: relative;
+        top: 0;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--color-warm-sand);
+        padding-bottom: var(--space-24);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="arkava.jpg" alt="Arkava Logo" style="width: 34px; height: 34px; border-radius: 8px; object-fit: cover;">
+        <span>Arkava <span style="font-size: 14px; font-family: var(--font-sans); color: var(--color-taupe); font-weight: normal;">/ Docs</span></span>
+      </a>
+
+      <div class="nav-actions">
+        <div class="status-indicator" title="System Status: Robinhood Chain Mainnet operational">
+          <div class="pulse-dot"></div>
+          <span>Robinhood Chain (L2)</span>
+        </div>
+        <a href="index.html" class="btn btn-secondary" style="font-size: 14px; height: 38px;">
+          ← Back to App
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container docs-wrapper">
+      
+      <!-- Left Sidebar Navigation -->
+      <aside class="docs-sidebar">
+        <div style="margin-bottom: var(--space-20);">
+          <input type="text" class="input-text" id="docs-search-input" placeholder="Search docs, APIs, ISIN..." style="height: 36px; font-size: 13px;">
+        </div>
+
+        <div class="docs-nav-group">
+          <div class="docs-nav-title">Getting Started</div>
+          <ul class="docs-nav-list">
+            <li class="docs-nav-item"><a href="#overview" class="active">1. Protocol Overview</a></li>
+            <li class="docs-nav-item"><a href="#robinhood-chain">2. Robinhood Chain L2</a></li>
+            <li class="docs-nav-item"><a href="#compliance">3. Swiss DLT Compliance</a></li>
+          </ul>
+        </div>
+
+        <div class="docs-nav-group">
+          <div class="docs-nav-title">Core Concepts</div>
+          <ul class="docs-nav-list">
+            <li class="docs-nav-item"><a href="#atokens">4. Tokenized Equities (aTokens)</a></li>
+            <li class="docs-nav-item"><a href="#mint-redeem">5. Minting & Redemption</a></li>
+            <li class="docs-nav-item"><a href="#proof-of-reserves">6. Chainlink Proof of Reserve</a></li>
+          </ul>
+        </div>
+
+        <div class="docs-nav-group">
+          <div class="docs-nav-title">Developers & API</div>
+          <ul class="docs-nav-list">
+            <li class="docs-nav-item"><a href="#smart-contracts">7. Smart Contracts Registry</a></li>
+            <li class="docs-nav-item"><a href="#api-reference">8. REST API Reference</a></li>
+            <li class="docs-nav-item"><a href="#security">9. Security & Audits</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Documentation Content -->
+      <article class="docs-content">
+
+        <!-- Section 1 -->
+        <section class="docs-article" id="overview">
+          <div class="badge badge-accent" style="margin-bottom: 12px; display: inline-flex; align-items: center; gap: 6px;">
+            <img src="robinhood.png" alt="Robinhood" style="width: 18px; height: 18px; border-radius: 4px; object-fit: cover;">
+            Robinhood Chain L2 • Chain ID: 5050
+          </div>
+          <h2 class="heading-h2">1. Protocol Overview</h2>
+          <p>
+            <strong>Arkava</strong> is a decentralized financial infrastructure that brings institutional-grade US equities (Apple, NVIDIA, Coinbase, Tesla, Microsoft), ETFs, and US Treasuries on-chain.
+          </p>
+          <p>
+            Each token issued by Arkava (known as an <em>aToken</em>) is a standardized ERC-20 token on <strong>Robinhood Chain</strong>, fully collateralized 1:1 by real underlying securities held in bankruptcy-remote Swiss custody accounts.
+          </p>
+
+          <div class="card-featured" style="margin-top: 20px; background-color: var(--color-pure-white);">
+            <h3 class="subheading-h3" style="margin-bottom: 8px;">Key Protocol Pillars</h3>
+            <ul style="padding-left: 20px; color: var(--color-taupe); line-height: 1.6; font-size: 15px;">
+              <li><strong>Zero Gas Execution:</strong> Built natively for Robinhood Chain L2 to deliver zero-slippage and zero-gas stock minting.</li>
+              <li><strong>Strict 1:1 Collateralization:</strong> No unbacked, fractional reserve, or synthetic exposure—every token represents a real stock certificate.</li>
+              <li><strong>Institutional Protection:</strong> Fully compliant under the Swiss DLT Act (<em>Uncertificated Register / DLT-Rechte Art. 973d</em>).</li>
+              <li><strong>LayerZero Multi-Chain Interoperability:</strong> Seamlessly bridge tokenized assets between Robinhood Chain, Ethereum Mainnet, Arbitrum, and Base.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="docs-article" id="robinhood-chain">
+          <span class="badge badge-standard" style="margin-bottom: 12px;">Infrastructure</span>
+          <h2 class="heading-h2">2. Robinhood Chain L2 & Multi-Chain Architecture</h2>
+          <p>
+            Arkava leverages <strong>Robinhood Chain (Chain ID: 5050)</strong> as its primary execution environment. Robinhood Chain provides ultra-low latency, sub-second finality, and zero-fee trading for retail and institutional investors.
+          </p>
+          <p>
+            Cross-chain liquidity is powered by LayerZero OFTv2 standard, allowing institutional desks to move aTokens across Ethereum, Arbitrum One, and Base without fragmented liquidity pools or bridge vulnerability risks.
+          </p>
+          
+          <div class="code-block">
+            <span class="code-title">Robinhood Chain Network Configuration</span>
+Network Name: Robinhood Chain Mainnet
+RPC URL: https://rpc.robinhoodchain.finance
+Chain ID: 5050
+Currency Symbol: ETH
+Block Explorer: https://explorer.robinhoodchain.finance
+Cross-Chain Protocol: LayerZero OFTv2 (Endpoint ID: 30184)</div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="docs-article" id="compliance">
+          <span class="badge badge-warning" style="margin-bottom: 12px;">Legal & Trust</span>
+          <h2 class="heading-h2">3. Swiss DLT Compliance & Regulatory Framework</h2>
+          <p>
+            Arkava operates under the Swiss Federal Act on the Adaptation of Federal Law to Developments in Distributed Ledger Technology (Swiss DLT Act, Art. 973d OR).
+          </p>
+          <p>
+            Underlying securities are held in segregated, omnibus custody accounts at <strong>Swissquote Bank SA</strong> (Zug, Switzerland • FINMA Regulated). In the event of bankruptcy, collateral remains legally protected and ring-fenced for token holders outside the bank's balance sheet.
+          </p>
+
+          <div class="table-responsive" style="margin-top: 16px;">
+            <table class="arkava-table">
+              <thead>
+                <tr>
+                  <th>Jurisdiction / Rule</th>
+                  <th>Regulatory Standard</th>
+                  <th>Legal Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Switzerland (FINMA)</strong></td>
+                  <td>Swiss DLT Act Art. 973d (Ledger-Based Securities)</td>
+                  <td>Compliant & Registered</td>
+                </tr>
+                <tr>
+                  <td><strong>European Union (EU)</strong></td>
+                  <td>MiCA (Markets in Crypto-Assets) Art. 48</td>
+                  <td>Asset-Referenced Token (ART) Compliant</td>
+                </tr>
+                <tr>
+                  <td><strong>Global International</strong></td>
+                  <td>SEC Regulation S (Offshore Investor Exemption)</td>
+                  <td>Qualified Non-US Investors Only</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="docs-article" id="atokens">
+          <span class="badge badge-accent" style="margin-bottom: 12px;">Asset Registry</span>
+          <h2 class="heading-h2">4. Tokenized Equities & ETF Registry Specification</h2>
+          <p>Below is the complete technical specification of supported aTokens deployed on Robinhood Chain:</p>
+          
+          <div class="table-responsive" style="margin-top: 16px;">
+            <table class="arkava-table">
+              <thead>
+                <tr>
+                  <th>Ticker</th>
+                  <th>Underlying Stock / Instrument</th>
+                  <th>ISIN Code</th>
+                  <th>Bloomberg Ticker</th>
+                  <th>Settlement</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>aAAPL</strong></td>
+                  <td>Apple Inc. Common Stock</td>
+                  <td>US0378331005</td>
+                  <td>AAPL US Equity</td>
+                  <td>T+0 Instant / Robinhood L2</td>
+                </tr>
+                <tr>
+                  <td><strong>aNVDA</strong></td>
+                  <td>NVIDIA Corporation Common Stock</td>
+                  <td>US67066G1040</td>
+                  <td>NVDA US Equity</td>
+                  <td>T+0 Instant / Robinhood L2</td>
+                </tr>
+                <tr>
+                  <td><strong>aCOIN</strong></td>
+                  <td>Coinbase Global Inc. Class A</td>
+                  <td>US19260Q1076</td>
+                  <td>COIN US Equity</td>
+                  <td>T+0 Instant / Robinhood L2</td>
+                </tr>
+                <tr>
+                  <td><strong>aTSLA</strong></td>
+                  <td>Tesla Inc. Common Stock</td>
+                  <td>US88160R1014</td>
+                  <td>TSLA US Equity</td>
+                  <td>T+0 Instant / Robinhood L2</td>
+                </tr>
+                <tr>
+                  <td><strong>aMSFT</strong></td>
+                  <td>Microsoft Corporation Stock</td>
+                  <td>US5949181045</td>
+                  <td>MSFT US Equity</td>
+                  <td>T+0 Instant / Robinhood L2</td>
+                </tr>
+                <tr>
+                  <td><strong>aCSPX</strong></td>
+                  <td>iShares Core S&P 500 UCITS ETF</td>
+                  <td>IE00B5BMR087</td>
+                  <td>CSPX LN Equity</td>
+                  <td>T+0 Instant / Robinhood L2</td>
+                </tr>
+                <tr>
+                  <td><strong>aIB01</strong></td>
+                  <td>iShares $ Treasury Bond 0-1yr ETF</td>
+                  <td>IE00B1FZS350</td>
+                  <td>IB01 LN Equity</td>
+                  <td>T+0 Instant / Robinhood L2</td>
+                </tr>
+                <tr>
+                  <td><strong>aHYG</strong></td>
+                  <td>iShares High Yield Corp Bond ETF</td>
+                  <td>US4642885135</td>
+                  <td>HYG US Equity</td>
+                  <td>T+0 Instant / Robinhood L2</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="docs-article" id="mint-redeem">
+          <span class="badge badge-standard" style="margin-bottom: 12px;">Protocol Mechanics</span>
+          <h2 class="heading-h2">5. Minting, Redemption & Corporate Actions</h2>
+          <p>
+            Authorized Participants (APs) and verified retail users can mint and redeem aTokens on-demand with zero slippage.
+          </p>
+          <ol style="padding-left: 20px; color: var(--color-taupe); line-height: 1.8; margin-bottom: 16px;">
+            <li><strong>Deposit:</strong> User deposits USD, USDC, or USDT into the primary Robinhood vault contract.</li>
+            <li><strong>Broker Execution:</strong> Swissquote Bank purchases equivalent shares on NYSE/NASDAQ.</li>
+            <li><strong>Mint:</strong> The <code>RobinhoodArkavaFactory</code> contract mints 1:1 matching aTokens directly to the user's wallet address.</li>
+            <li><strong>Redeem:</strong> Token holders can burn aTokens at any time to receive exact equivalent fiat cash or stablecoins.</li>
+          </ol>
+
+          <h3 class="subheading-h3" style="margin-top: 24px; margin-bottom: 8px;">Corporate Actions Handling Protocol</h3>
+          <p style="font-size: 14.5px; color: var(--color-taupe); line-height: 1.6;">
+            <strong>Cash Dividends:</strong> Dividend payouts from underlying stocks are collected by Swissquote Bank on the ex-dividend date, converted to stablecoins (USDC), and automatically streamed or claimable via the <code>ArkavaDividendDistributor</code> contract.<br>
+            <strong>Stock Splits:</strong> In the event of a N:1 or 1:N stock split, smart contracts execute a proportional re-denomination via <code>splitToken(ratio)</code>, ensuring token holders retain exact equivalent market value without taxable events.
+          </p>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="docs-article" id="proof-of-reserves">
+          <span class="badge badge-warning" style="margin-bottom: 12px;">Oracle Audit</span>
+          <h2 class="heading-h2">6. Chainlink Proof of Reserve & Circuit Breaker</h2>
+          <p>
+            Arkava uses <strong>Chainlink Proof of Reserve Oracles</strong> to ensure continuous, independent audit of bank custody balances against smart contract total supply.
+          </p>
+          <p>
+            Chainlink node operators query bank custody balances every 10 minutes. If bank balances drop below smart contract total supply (reserve ratio &lt; 100%), the contract automatically triggers an instant <strong>Emergency Pause Sentinel</strong> within 1 block, halting new token mints until reserves are re-attested.
+          </p>
+        </section>
+
+        <!-- Section 7 -->
+        <section class="docs-article" id="smart-contracts">
+          <span class="badge badge-accent" style="margin-bottom: 12px;">Developers & SDK</span>
+          <h2 class="heading-h2">7. Smart Contracts, Developer SDK & API Reference</h2>
+          <p>Smart contract addresses deployed on Robinhood Chain Mainnet:</p>
+
+          <div class="code-block">
+            <span class="code-title">Deployed Robinhood Chain Contracts</span>
+// Factory & Treasury Vault Contract
+RobinhoodArkavaFactory: "0x5050a2D6489a74073581729013098520x43a88b1e"
+
+// Asset Token Contracts (ERC-20 / DLT)
+aAAPL_Token: "0x3918a9Bf3900a892b11295A6E8203c988942b012"
+aNVDA_Token: "0x78a0A7569e2c6081e7d825c9388B9761e0b5103c"
+aCOIN_Token: "0x19260Q10769a74073581729013098520x43a88b1e"
+aTSLA_Token: "0x88160R10149a74073581729013098520x9923a100"
+
+// Oracle & Dividend Contracts
+ChainlinkPoROracle: "0x514910771AF9Ca656af840dff83E8264EcF986CA"
+ArkavaDividendDistributor: "0x8f319201a40974073581729013098520x11aa"</div>
+
+          <h3 class="subheading-h3" style="margin-top: 24px; margin-bottom: 12px;">TypeScript / Node.js SDK Integration</h3>
+          <div class="code-block">
+            <span class="code-title">npm install @arkava/sdk</span>
+import { ArkavaClient } from '@arkava/sdk';
+
+const arkava = new ArkavaClient({
+  apiKey: 'ark_live_99f28a107384',
+  chain: 'robinhood'
+});
+
+// Fetch 1:1 PoR quote for 100 aAAPL
+const quote = await arkava.getQuote({ symbol: 'aAAPL', depositUSD: 10000 });
+console.log(`Mintable Tokens: ${quote.tokenAmount} aAAPL`);</div>
+
+          <h3 class="subheading-h3" style="margin-top: 24px; margin-bottom: 12px;">Minting API Quote Endpoint</h3>
+          <div class="code-block">
+            <span class="code-title">POST /v1/mint/quote</span>
+curl -X POST https://api.arkava.cloud/v1/mint/quote \
+  -H "Authorization: Bearer {YOUR_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "asset": "aAAPL",
+    "depositUSD": 10000,
+    "chain": "robinhood"
+  }'</div>
+        </section>
+
+        <!-- Section 8 -->
+        <section class="docs-article" id="api-reference">
+          <span class="badge badge-standard" style="margin-bottom: 12px;">API Integration</span>
+          <h2 class="heading-h2">8. REST API Reference & Webhooks</h2>
+          <p>
+            Arkava provides high-throughput REST APIs for institutional desks, market makers, and liquidity aggregators to execute programmatic mints, redemptions, and custody balance queries.
+          </p>
+
+          <h3 class="subheading-h3" style="margin-top: 16px; margin-bottom: 8px;">GET /v1/assets/reserves</h3>
+          <div class="code-block">
+            <span class="code-title">GET /v1/assets/reserves</span>
+curl -X GET https://api.arkava.cloud/v1/assets/reserves \
+  -H "Authorization: Bearer {YOUR_API_KEY}"</div>
+
+          <h3 class="subheading-h3" style="margin-top: 16px; margin-bottom: 8px;">Response Payload</h3>
+          <div class="code-block">
+            <span class="code-title">200 OK</span>
+{
+  "status": "success",
+  "timestamp": "2026-08-03T09:30:00Z",
+  "custodian": "Swissquote Bank SA",
+  "totalBankCollateralUSD": 148920400.00,
+  "totalOnChainSupplyUSD": 148920400.00,
+  "reserveRatio": 1.0000,
+  "oracleConsensus": "16/16 Nodes Signed"
+}</div>
+        </section>
+
+        <!-- Section 9 -->
+        <section class="docs-article" id="security">
+          <span class="badge badge-warning" style="margin-bottom: 12px;">Security & Audit</span>
+          <h2 class="heading-h2">9. Security, Multi-Sig Governance & Audits</h2>
+          <p>
+            Security is paramount for long-term institutional asset protection. Arkava's smart contracts employ a multi-layered security defense:
+          </p>
+          <ul style="padding-left: 20px; color: var(--color-taupe); line-height: 1.8; margin-bottom: 16px;">
+            <li><strong>Independent Formal Audits:</strong> Audited by <strong>CertiK</strong> and <strong>OpenZeppelin</strong> with 0 critical/high vulnerabilities found.</li>
+            <li><strong>3-of-5 Multi-Sig Governance:</strong> Protocol upgrades and parameter modifications require 3 out of 5 hardware key signatures (Swissquote, Arkava AG Foundation, and 3 Independent Security Trustees).</li>
+            <li><strong>48-Hour Timelock:</strong> Non-emergency administrative changes are subjected to a mandatory 48-hour timelock delay on-chain.</li>
+            <li><strong>FINMA Attestation:</strong> Quarterly financial audits conducted by PricewaterhouseCoopers AG (PwC Zurich).</li>
+          </ul>
+
+          <div style="margin-top: 20px;">
+            <a href="ARKAVA_Certificate_AVA.pdf" download="ARKAVA_Certificate_AVA.pdf" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 14px; height: 38px;">
+              Download Audit Certificate (ARKAVA_Certificate_AVA.pdf)
+            </a>
+          </div>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0; flex-direction: column; gap: 8px; align-items: center;">
+        <span>© 2026 Arkava AG (Zug Commercial Register: CHE-492.182.901). Baarerstrasse 14, 6300 Zug, Switzerland.</span>
+        <span>Official Contact: <a href="mailto:official@arkava.cloud" style="color: var(--color-lime-bright); text-decoration: underline;">official@arkava.cloud</a></span>
+        <a href="index.html" class="footer-link">← Back to App</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add copy button to every code block
+      document.querySelectorAll('.code-block').forEach(block => {
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'btn-copy-code';
+        copyBtn.textContent = 'Copy Code';
+        copyBtn.addEventListener('click', () => {
+          const titleEl = block.querySelector('.code-title');
+          let text = block.textContent.replace('Copy Code', '').trim();
+          if (titleEl) {
+            text = text.replace(titleEl.textContent, '').trim();
+          }
+          navigator.clipboard.writeText(text).then(() => {
+            copyBtn.textContent = 'Copied!';
+            copyBtn.style.background = 'var(--color-lime)';
+            copyBtn.style.color = 'var(--color-navy)';
+            setTimeout(() => {
+              copyBtn.textContent = 'Copy Code';
+              copyBtn.style.background = '';
+              copyBtn.style.color = '';
+            }, 2000);
+          });
+        });
+        block.appendChild(copyBtn);
+      });
+
+      // Live search filtering
+      const searchInput = document.getElementById('docs-search-input');
+      const articles = document.querySelectorAll('.docs-article');
+      if (searchInput) {
+        searchInput.addEventListener('input', e => {
+          const q = e.target.value.toLowerCase().trim();
+          articles.forEach(art => {
+            const text = art.textContent.toLowerCase();
+            art.style.display = text.includes(q) ? 'block' : 'none';
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

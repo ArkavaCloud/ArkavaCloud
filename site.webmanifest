@@ -1,0 +1,21 @@
+{
+  "name": "Arkava — Swiss RWA Tokenization",
+  "short_name": "Arkava",
+  "description": "Institutional Real-World Asset (RWA) tokenization protocol on Robinhood Chain L2.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#FAF8EF",
+  "theme_color": "#17190F",
+  "icons": [
+    {
+      "src": "arkava.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "arkava.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

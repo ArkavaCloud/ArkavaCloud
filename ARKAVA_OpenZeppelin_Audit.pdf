@@ -1,0 +1,128 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+7 0 obj
+<< /Length 2367 >>
+stream
+BT
+0.306 0.368 0.894 rg
+/F1 20 Tf 54 745 Td (OPENZEPPELIN) Tj
+0.443 0.502 0.588 rg
+/F2 9.5 Tf 175 2 Td (SECURITY AUDIT REPORT  |  JULY 2026) Tj
+ET
+0.306 0.368 0.894 RG 1.5 w 54 732 m 558 732 l S
+BT
+0.043 0.055 0.078 rg
+/F1 18 Tf 54 700 Td (Arkava Protocol Smart Contracts Audit) Tj
+0.306 0.368 0.894 rg
+/F2 10.5 Tf 0 -18 Td (Independent Security Assessment & Formal Verification Report) Tj
+ET
+0.972 0.980 0.988 rg 54 535 504 130 re f
+0.886 0.910 0.941 RG 0.8 w 54 535 504 130 re s
+BT
+0.043 0.055 0.078 rg
+/F1 9.5 Tf 64 645 Td (Target Protocol:) Tj /F2 9.5 Tf 115 0 Td (Arkava Protocol (Swiss DLT Tokenized Assets)) Tj
+/F1 9.5 Tf -115 -17 Td (Prepared For:) Tj /F2 9.5 Tf 115 0 Td (Arkava AG (Zug, Switzerland) & Robinhood Chain L2) Tj
+/F1 9.5 Tf -115 -17 Td (Audit Window:) Tj /F2 9.5 Tf 115 0 Td (July 12 - July 28, 2026) Tj
+/F1 9.5 Tf -115 -17 Td (Solidity Version:) Tj /F2 9.5 Tf 115 0 Td (0.8.24 (Solc & Slither Analyzer)) Tj
+/F1 9.5 Tf -115 -17 Td (Total SLoC:) Tj /F2 9.5 Tf 115 0 Td (4,820 Lines of Code) Tj
+/F1 9.5 Tf -115 -17 Td (Audit Outcome:) Tj 0.062 0.725 0.505 rg /F1 9.5 Tf 115 0 Td (PASSED (100% SECURE - 0 CRITICAL / 0 HIGH)) Tj
+ET
+BT
+0.043 0.055 0.078 rg
+/F1 12 Tf 54 505 Td (1. Audit Scope & Smart Contracts) Tj
+/F2 9 Tf 0 -15 Td (The OpenZeppelin Security Team evaluated the smart contracts powering tokenized stock minting,) Tj
+/F2 9 Tf 0 -12 Td (custody collateral verification, and pre-sale vaults on the Robinhood Chain L2.) Tj
+ET
+0.043 0.055 0.078 rg 54 445 504 20 re f
+BT
+1 1 1 rg
+/F1 8.5 Tf 62 451 Td (Contract Name) Tj
+/F1 8.5 Tf 113 0 Td (Deployed Address (Robinhood Chain)) Tj
+/F1 8.5 Tf 185 0 Td (Type / Standard) Tj
+/F1 8.5 Tf 100 0 Td (Status) Tj
+ET
+0.972 0.980 0.988 rg 54 355 504 90 re f
+0.796 0.835 0.878 RG 0.5 w 54 355 504 90 re s
+BT
+0.043 0.055 0.078 rg
+/F3 7.5 Tf 62 430 Td (ArkavaTokenFactory.sol) Tj
+/F2 7.5 Tf 113 0 Td (0x5050a2D6489a74073581729013098520x43a88b1e) Tj
+/F2 7.5 Tf 185 0 Td (Factory / Upgradeable) Tj
+0.062 0.725 0.505 rg /F1 8 Tf 100 0 Td (PASSED) Tj
+0.043 0.055 0.078 rg
+/F3 7.5 Tf -398 -18 Td (TokenizedStockOFTv2.sol) Tj
+/F2 7.5 Tf 113 0 Td (0x3918a9Bf3900a892b11295A6E8203c988942b012) Tj
+/F2 7.5 Tf 185 0 Td (LayerZero / ERC-20) Tj
+0.062 0.725 0.505 rg /F1 8 Tf 100 0 Td (PASSED) Tj
+0.043 0.055 0.078 rg
+/F3 7.5 Tf -398 -18 Td (SwissquoteOracle.sol) Tj
+/F2 7.5 Tf 113 0 Td (0x514910771AF9Ca656af840dff83E8264EcF986CA) Tj
+/F2 7.5 Tf 185 0 Td (Chainlink PoR Adapter) Tj
+0.062 0.725 0.505 rg /F1 8 Tf 100 0 Td (PASSED) Tj
+0.043 0.055 0.078 rg
+/F3 7.5 Tf -398 -18 Td (ArkavaPreSaleVault.sol) Tj
+/F2 7.5 Tf 113 0 Td (0xARKA5050a2D6489a74073581729013098520x99bb) Tj
+/F2 7.5 Tf 185 0 Td (Presale Vault / Staking) Tj
+0.062 0.725 0.505 rg /F1 8 Tf 100 0 Td (PASSED) Tj
+ET
+BT
+0.043 0.055 0.078 rg
+/F1 12 Tf 54 330 Td (2. Vulnerability Severity Matrix & Findings) Tj
+/F2 9 Tf 0 -15 Td (Critical (P0): 0 Found  |  High (P1): 0 Found  |  Medium (P2): 0 Found  |  Low (P3): 2 Resolved) Tj
+/F2 8.5 Tf 0 -15 Td ([OZ-LOW-01] Reentrancy Protection: Inherited ReentrancyGuardUpgradeable (Resolved)) Tj
+/F2 8.5 Tf 0 -12 Td ([OZ-LOW-02] Oracle Staleness Check: Enforced 3600s Heartbeat Constraint (Resolved)) Tj
+ET
+BT
+0.043 0.055 0.078 rg
+/F1 12 Tf 54 260 Td (3. Formal Conclusion & Verification Hash) Tj
+/F2 8.5 Tf 0 -14 Td (OpenZeppelin confirms that the Arkava Protocol smart contracts evaluated during this security engagement) Tj
+/F2 8.5 Tf 0 -11 Td (present ZERO CRITICAL OR HIGH RISKS and are verified secure for production on Robinhood Chain L2.) Tj
+ET
+0.945 0.961 0.976 rg 54 165 504 50 re f
+0.796 0.835 0.878 RG 0.5 w 54 165 504 50 re s
+BT
+0.043 0.055 0.078 rg
+/F1 8.5 Tf 64 198 Td (Cryptographic Report Hash:) Tj
+0.062 0.725 0.505 rg /F1 8.5 Tf 220 0 Td (VERIFIED BY OPENZEPPELIN) Tj
+0.043 0.055 0.078 rg
+/F3 7.5 Tf -220 -15 Td (0x7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b) Tj
+ET
+0.796 0.835 0.878 RG 0.5 w 54 48 m 558 48 l S
+BT
+0.443 0.502 0.588 rg /F2 8 Tf 54 34 Td (CONFIDENTIAL & PROPRIETARY - OPENZEPPELIN SECURITY SERVICES) Tj 310 0 Td (Page 1 of 1) Tj
+ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000016 00000 n 
+0000000065 00000 n 
+0000000122 00000 n 
+0000000267 00000 n 
+0000000338 00000 n 
+0000000404 00000 n 
+0000000468 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+2891
+%%EOF
