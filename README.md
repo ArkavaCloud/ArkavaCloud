@@ -22,6 +22,8 @@
   <a href="https://github.com/arkavacloud">GitHub</a>
   &middot;
   <a href="mailto:official@arkava.cloud">Email Contact</a>
+  &middot;
+  <a href="https://x.com/Arkavacloud">X</a>
 </p>
 
 <p align="center">
